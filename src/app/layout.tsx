@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Merriweather, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
-
-import TopBar from "@/components/layout/TopBar";
-import Header from "@/components/layout/Header";
-import Breadcrumb from "@/components/layout/Breadcrumb";
-import Footer from "@/components/layout/Footer";
+import AppShell from "@/components/layout/AppShell";
 
 const merriweather = Merriweather({
   variable: "--font-heading",
@@ -61,27 +57,7 @@ export default function RootLayout({
       className={`${merriweather.variable} ${sourceSans.variable} h-full`}
     >
       <body className="min-h-full flex flex-col font-body antialiased">
-        {/* Skip to content — Accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to main content
-        </a>
-
-        {/* Top Bar: phone, email, social */}
-        <TopBar />
-
-        {/* Sticky Header: logo + navigation */}
-        <Header />
-
-        {/* Breadcrumb navigation (hidden on home) */}
-        <Breadcrumb />
-
-        {/* Main content */}
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-
-        {/* Footer */}
-        <Footer />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
