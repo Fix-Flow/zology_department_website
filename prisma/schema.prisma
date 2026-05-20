@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Authentication & Users ───
+
+enum Role {
+  SUPER_ADMIN
+  FACULTY_MANAGER
+  CONTENT_EDITOR
+  EVENT_MANAGER
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  password      String
+  role          Role     @default(CONTENT_EDITOR)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
+}
+
+// ─── Faculty ───
+
+enum FacultyCategory {
+  TEACHING
+  NON_TEACHING
+  VISITING
+  RESEARCH_SCHOLAR
+}
+
+model Faculty {
+  id                String          @id @default(cuid())
+  slug              String          @unique
+  name              String
+  designation       String
+  category          FacultyCategory
+  qualification     String[]
+  experience        Int
+  specialization    String[]
+  photo             String?
+  email             String
+  phone             String?
+  publications      Int             @default(0)
+  awards            String[]
+  researchInterests String[]
+  googleScholar     String?
+  orcid             String?
+  displayOrder      Int             @default(0)
+  isActive          Boolean         @default(true)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@map("faculty")
+}
+
+// ─── Courses ───
+
+enum CourseLevel {
+  UG
+  PG
+  SKILL
+}
+
+model Course {
+  id                  String      @id @default(cuid())
+  slug                String      @unique
+  title               String
+  level               CourseLevel
+  duration            String
+  intake              Int
+  eligibility         String
+  syllabusUrl         String?
+  careerOpportunities String[]
+  programmeOutcomes   String[]
+  courseOutcomes       String[]
+  pso                 String[]
+  isActive            Boolean     @default(true)
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  @@map("courses")
+}
+
+// ─── Events ───
+
+enum EventCategory {
+  WORKSHOP
+  SEMINAR
+  GUEST_LECTURE
+  EXHIBITION
+  EXTENSION
+  AWARENESS
+  FIELD_VISIT
+}
+
+model Event {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  category       EventCategory
+  date           DateTime
+  venue          String
+  posterImage    String?
+  reportUrl      String?
+  photos         String[]
+  summary        String        @db.Text
+  resourcePerson String?
+  featured       Boolean       @default(false)
+  isActive       Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@map("events")
+}
+
+// ─── Notices ───
+
+enum NoticeCategory {
+  CIRCULAR
+  EXAM
+  SEMINAR
+  RESULT
+  ADMISSION
+  GENERAL
+}
+
+model Notice {
+  id            String         @id @default(cuid())
+  title         String
+  date          DateTime
+  category      NoticeCategory
+  attachmentUrl String?
+  isNew         Boolean        @default(true)
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("notices")
+}
+
+// ─── Publications ───
+
+enum PublicationType {
+  JOURNAL
+  BOOK
+  CHAPTER
+  CONFERENCE
+}
+
+model Publication {
+  id           String          @id @default(cuid())
+  title        String
+  authors      String[]
+  journal      String
+  year         Int
+  type         PublicationType
+  doi          String?
+  impactFactor Float?
+  isActive     Boolean         @default(true)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@map("publications")
+}
+
+// ─── Gallery ───
+
+enum GalleryCategory {
+  EVENT
+  LAB
+  MUSEUM
+  FIELD_VISIT
+  CAMPUS
+}
+
+model GalleryImage {
+  id        String          @id @default(cuid())
+  src       String
+  alt       String
+  category  GalleryCategory
+  eventSlug String?
+  year      Int
+  isActive  Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@map("gallery_images")
+}
+
+// ─── Downloads ───
+
+model Download {
+  id        String   @id @default(cuid())
+  title     String
+  category  String
+  fileUrl   String
+  fileSize  String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("downloads")
+}
+
+// ─── Site Settings ───
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String @db.Text
+
+  @@map("site_settings")
+}
