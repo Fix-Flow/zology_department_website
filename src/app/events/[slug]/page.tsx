@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MapPin, User, Download, Image as ImageIcon } from "lucide-react";
-import { events, getEventBySlug } from "@/data/events";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
-  return events.map((e) => ({
-    slug: e.slug,
-  }));
+  const events = await prisma.event.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+  });
+  return events.map((e) => ({ slug: e.slug }));
 }
 
 interface EventPageProps {
@@ -18,7 +22,7 @@ export async function generateMetadata({
   params,
 }: EventPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await prisma.event.findUnique({ where: { slug } });
 
   if (!event) return { title: "Event Not Found" };
 
@@ -30,9 +34,9 @@ export async function generateMetadata({
 
 export default async function EventDetailPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await prisma.event.findUnique({ where: { slug } });
 
-  if (!event) {
+  if (!event || !event.isActive) {
     notFound();
   }
 
@@ -59,7 +63,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
         <div className="space-y-8">
           <div>
             <div className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full mb-4 capitalize">
-              {event.category.replace("-", " ")}
+              {event.category.replace("_", " ").toLowerCase()}
             </div>
             <h1 className="font-heading font-bold text-3xl sm:text-4xl text-govt-text mb-6">
               {event.title}
@@ -79,14 +83,13 @@ export default async function EventDetailPage({ params }: EventPageProps) {
             <div className="prose prose-blue max-w-none text-govt-text leading-relaxed">
               <p className="text-lg text-govt-muted mb-6">{event.summary}</p>
               
-              {/* If we had full content, we'd render it here. For now, just a placeholder text to show layout */}
               <p>
-                The event brought together students, faculty, and experts to discuss key topics in {event.category.replace("-", " ")}. 
+                The event brought together students, faculty, and experts to discuss key topics in {event.category.replace("_", " ").toLowerCase()}. 
                 The session began with an inaugural address by the Head of the Department, followed by a detailed presentation. 
                 Participants engaged in interactive discussions and hands-on activities where applicable.
               </p>
               <p>
-                Such initiatives are part of the department's ongoing commitment to providing holistic education and exposure 
+                Such initiatives are part of the department&apos;s ongoing commitment to providing holistic education and exposure 
                 beyond the standard curriculum, aligning with our objectives to foster research, innovation, and practical skills.
               </p>
             </div>
@@ -99,7 +102,12 @@ export default async function EventDetailPage({ params }: EventPageProps) {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {event.photos.map((photo, idx) => (
                   <div key={idx} className="aspect-video bg-neutral-bg rounded-lg border border-govt-border flex items-center justify-center relative overflow-hidden group">
-                    <ImageIcon size={32} className="text-govt-muted/30" />
+                    {photo.startsWith("http") ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={photo} alt={`Event photo ${idx + 1}`} className="absolute inset-0 w-full h-full object-cover" />
+                    ) : (
+                      <ImageIcon size={32} className="text-govt-muted/30" />
+                    )}
                     <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium">
                       View Image {idx + 1}
                     </div>

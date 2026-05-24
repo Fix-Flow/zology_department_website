@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { ArrowRight, ImageIcon } from "lucide-react";
-import { galleryImages } from "@/data/gallery";
+import { prisma } from "@/lib/prisma";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-export default function GalleryPreview() {
-  const previewImages = galleryImages.slice(0, 6);
+export default async function GalleryPreview() {
+  const previewImages = await prisma.galleryImage.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+
+  if (previewImages.length === 0) return null;
 
   return (
     <section className="section-padding bg-white">
@@ -39,10 +45,19 @@ export default function GalleryPreview() {
                 }`}
                 style={{ minHeight: isLarge ? "300px" : "150px" }}
               >
-                {/* Placeholder with icon */}
-                <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
-                  <ImageIcon size={isLarge ? 48 : 32} className="text-primary/15" />
-                </div>
+                {/* Show real image if available, otherwise placeholder */}
+                {image.src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
+                    <ImageIcon size={isLarge ? 48 : 32} className="text-primary/15" />
+                  </div>
+                )}
 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-300 flex items-end">
@@ -51,7 +66,7 @@ export default function GalleryPreview() {
                       {image.alt}
                     </p>
                     <span className="text-white/60 text-[10px] uppercase tracking-wider mt-1 inline-block">
-                      {image.category.replace("-", " ")}
+                      {image.category.replace("_", " ").toLowerCase()}
                     </span>
                   </div>
                 </div>

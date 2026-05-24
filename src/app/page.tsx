@@ -7,6 +7,8 @@ import UpcomingEvents from "@/components/home/UpcomingEvents";
 import NewsNotices from "@/components/home/NewsNotices";
 import GalleryPreview from "@/components/home/GalleryPreview";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>

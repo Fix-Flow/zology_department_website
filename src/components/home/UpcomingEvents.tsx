@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
-import { getFeaturedEvents } from "@/data/events";
+import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-export default function UpcomingEvents() {
-  const featuredEvents = getFeaturedEvents().slice(0, 3);
+export default async function UpcomingEvents() {
+  const featuredEvents = await prisma.event.findMany({
+    where: { featured: true, isActive: true },
+    orderBy: { date: "desc" },
+    take: 3,
+  });
+
+  if (featuredEvents.length === 0) return null;
 
   return (
     <section className="section-padding bg-white">
@@ -41,7 +47,7 @@ export default function UpcomingEvents() {
                 {/* Category badge */}
                 <div className="absolute top-3 left-3">
                   <span className="badge-category capitalize">
-                    {event.category.replace("-", " ")}
+                    {event.category.replace("_", " ").toLowerCase()}
                   </span>
                 </div>
 
@@ -73,7 +79,7 @@ export default function UpcomingEvents() {
 
                 <div className="mt-1 flex items-center gap-1.5 text-govt-muted">
                   <CalendarDays size={13} className="shrink-0" />
-                  <span className="text-xs">{formatDate(event.date)}</span>
+                  <span className="text-xs">{formatDate(event.date.toISOString())}</span>
                 </div>
 
                 <p className="mt-3 text-sm text-govt-muted leading-relaxed line-clamp-2">

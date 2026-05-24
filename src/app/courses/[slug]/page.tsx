@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Users, GraduationCap, Download, CheckCircle2, Briefcase } from "lucide-react";
-import { courses, getCourseBySlug } from "@/data/courses";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
-  return courses.map((c) => ({
-    slug: c.slug,
-  }));
+  const courses = await prisma.course.findMany({
+    where: { isActive: true },
+    select: { slug: true },
+  });
+  return courses.map((c) => ({ slug: c.slug }));
 }
 
 interface CoursePageProps {
@@ -18,7 +22,7 @@ export async function generateMetadata({
   params,
 }: CoursePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const course = getCourseBySlug(slug);
+  const course = await prisma.course.findUnique({ where: { slug } });
 
   if (!course) return { title: "Course Not Found" };
 
@@ -30,11 +34,18 @@ export async function generateMetadata({
 
 export default async function CourseDetailPage({ params }: CoursePageProps) {
   const { slug } = await params;
-  const course = getCourseBySlug(slug);
+  const course = await prisma.course.findUnique({ where: { slug } });
 
-  if (!course) {
+  if (!course || !course.isActive) {
     notFound();
   }
+
+  const levelLabel =
+    course.level === "UG"
+      ? "Undergraduate"
+      : course.level === "PG"
+      ? "Postgraduate"
+      : "Skill Enhancement";
 
   return (
     <div className="section-container section-padding">
@@ -53,9 +64,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         
         <div className="relative z-10">
           <div className="inline-block px-3 py-1 bg-accent/20 border border-accent/30 text-accent text-xs font-bold rounded-full mb-4">
-            {course.level === "UG" && "Undergraduate"}
-            {course.level === "PG" && "Postgraduate"}
-            {course.level === "Skill" && "Skill Enhancement"}
+            {levelLabel}
           </div>
           <h1 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl mb-6">
             {course.title}
@@ -85,7 +94,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
         <div className="space-y-10">
           
           {/* Programme Outcomes */}
-          {course.programmeOutcomes && (
+          {course.programmeOutcomes.length > 0 && (
             <section>
               <h2 className="font-heading text-2xl text-govt-text mb-4">Programme Outcomes</h2>
               <ul className="space-y-3">
@@ -100,7 +109,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           )}
 
           {/* Programme Specific Outcomes */}
-          {course.pso && (
+          {course.pso.length > 0 && (
             <section>
               <h2 className="font-heading text-2xl text-govt-text mb-4">Programme Specific Outcomes</h2>
               <ul className="space-y-3">
@@ -115,7 +124,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           )}
 
           {/* Course Outcomes */}
-          {course.courseOutcomes && (
+          {course.courseOutcomes.length > 0 && (
             <section>
               <h2 className="font-heading text-2xl text-govt-text mb-4">Key Course Outcomes</h2>
               <ul className="grid sm:grid-cols-2 gap-4">
@@ -150,7 +159,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           </div>
 
           {/* Career Opportunities */}
-          {course.careerOpportunities && (
+          {course.careerOpportunities.length > 0 && (
             <div className="card-static p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Briefcase size={20} className="text-primary" />

@@ -1,7 +1,10 @@
 import PageHero from "@/components/ui/PageHero";
 import EventCard from "@/components/events/EventCard";
-import { events } from "@/data/events";
+import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
+import type { Event } from "@/types/event";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Department Events & Activities",
@@ -9,11 +12,26 @@ export const metadata: Metadata = {
     "Seminars, workshops, field visits, and other academic events organized by the Department of Zoology.",
 };
 
-export default function EventsPage() {
-  // Sort events by date descending
-  const sortedEvents = [...events].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+export default async function EventsPage() {
+  const dbEvents = await prisma.event.findMany({
+    where: { isActive: true },
+    orderBy: { date: "desc" },
+  });
+
+  // Map DB fields to the shape EventCard expects
+  const sortedEvents = dbEvents.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    category: e.category.toLowerCase().replace("_", "-") as Event["category"],
+    date: e.date.toISOString(),
+    venue: e.venue,
+    posterImage: e.posterImage || undefined,
+    reportUrl: e.reportUrl || undefined,
+    photos: e.photos,
+    summary: e.summary,
+    resourcePerson: e.resourcePerson || undefined,
+    featured: e.featured,
+  }));
 
   return (
     <>
@@ -23,11 +41,17 @@ export default function EventsPage() {
       />
 
       <div className="section-container section-padding">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {sortedEvents.map((event) => (
-            <EventCard key={event.slug} event={event} />
-          ))}
-        </div>
+        {sortedEvents.length === 0 ? (
+          <p className="text-center text-govt-muted py-12">
+            No events have been posted yet. Check back soon!
+          </p>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {sortedEvents.map((event) => (
+              <EventCard key={event.slug} event={event} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

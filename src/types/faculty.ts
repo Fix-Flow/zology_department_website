@@ -6,7 +6,7 @@ export interface Faculty {
   qualification: string[];
   experience: number;
   specialization: string[];
-  photo: string;
+  photo?: string;
   email: string;
   phone?: string;
   publications: number;

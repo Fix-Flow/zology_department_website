@@ -1,19 +1,23 @@
 import Link from "next/link";
 import { Bell, FileText, ArrowRight } from "lucide-react";
-import { getRecentNotices } from "@/data/notices";
+import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 
 const categoryColors: Record<string, string> = {
-  circular: "text-blue-600",
-  exam: "text-red-600",
-  seminar: "text-purple-600",
-  result: "text-green-600",
-  admission: "text-amber-600",
-  general: "text-gray-600",
+  CIRCULAR: "text-blue-600",
+  EXAM: "text-red-600",
+  SEMINAR: "text-purple-600",
+  RESULT: "text-green-600",
+  ADMISSION: "text-amber-600",
+  GENERAL: "text-gray-600",
 };
 
-export default function NewsNotices() {
-  const recentNotices = getRecentNotices(6);
+export default async function NewsNotices() {
+  const recentNotices = await prisma.notice.findMany({
+    where: { isActive: true },
+    orderBy: { date: "desc" },
+    take: 6,
+  });
 
   return (
     <section className="section-padding bg-neutral-bg">
@@ -57,35 +61,41 @@ export default function NewsNotices() {
               </div>
 
               <div className="max-h-[420px] overflow-y-auto">
-                {recentNotices.map((notice) => (
-                  <Link
-                    key={notice.id}
-                    href={notice.attachmentUrl || "#"}
-                    className="notice-item group"
-                  >
-                    <div className="shrink-0 mt-0.5">
-                      <FileText
-                        size={16}
-                        className={categoryColors[notice.category] || "text-gray-500"}
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start gap-2">
-                        <p className="text-sm font-medium text-govt-text group-hover:text-primary transition-colors line-clamp-2 flex-1">
-                          {notice.title}
-                        </p>
-                        {notice.isNew && (
-                          <span className="badge-new text-[8px] px-1.5 py-0 shrink-0 mt-0.5">
-                            NEW
-                          </span>
-                        )}
+                {recentNotices.length === 0 ? (
+                  <div className="p-6 text-center text-govt-muted text-sm">
+                    No notices posted yet.
+                  </div>
+                ) : (
+                  recentNotices.map((notice) => (
+                    <Link
+                      key={notice.id}
+                      href={notice.attachmentUrl || "#"}
+                      className="notice-item group"
+                    >
+                      <div className="shrink-0 mt-0.5">
+                        <FileText
+                          size={16}
+                          className={categoryColors[notice.category] || "text-gray-500"}
+                        />
                       </div>
-                      <p className="text-xs text-govt-muted mt-1">
-                        {formatDate(notice.date)}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start gap-2">
+                          <p className="text-sm font-medium text-govt-text group-hover:text-primary transition-colors line-clamp-2 flex-1">
+                            {notice.title}
+                          </p>
+                          {notice.isNew && (
+                            <span className="badge-new text-[8px] px-1.5 py-0 shrink-0 mt-0.5">
+                              NEW
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-govt-muted mt-1">
+                          {formatDate(notice.date.toISOString())}
+                        </p>
+                      </div>
+                    </Link>
+                  ))
+                )}
               </div>
 
               {/* View All */}
