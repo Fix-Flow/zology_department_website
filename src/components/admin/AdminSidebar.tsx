@@ -15,6 +15,8 @@ import {
   UserCog,
   ChevronLeft,
   GraduationCap,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -67,14 +69,25 @@ export default function AdminSidebar({
         )}
       >
         {/* Logo */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-white/10 shrink-0">
+        <div className={cn("h-16 flex items-center border-b border-white/10 shrink-0", collapsed ? "justify-center px-0" : "justify-between px-4")}>
           <div className="flex items-center">
-            <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center shrink-0">
-              <GraduationCap size={20} className="text-white" />
-            </div>
+            {collapsed ? (
+              <button 
+                onClick={() => setCollapsed(false)} 
+                className="w-10 h-10 rounded-lg hover:bg-white/10 flex items-center justify-center shrink-0 transition-colors group"
+                title="Expand sidebar"
+              >
+                <PanelLeftOpen size={20} className="text-white/60 group-hover:text-white transition-colors" />
+              </button>
+            ) : (
+              <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center shrink-0">
+                <GraduationCap size={20} className="text-white" />
+              </div>
+            )}
+            
             {!collapsed && (
               <div className="ml-3 overflow-hidden">
-                <p className="text-sm font-bold leading-tight truncate">
+                <p className="text-sm font-bold leading-tight truncate text-white/90">
                   Zoology Dept
                 </p>
                 <p className="text-[10px] text-white/50 leading-tight truncate">
@@ -90,6 +103,17 @@ export default function AdminSidebar({
           >
             <X size={20} />
           </button>
+          
+          {/* Desktop Collapse Button */}
+          {!collapsed && (
+            <button
+              onClick={() => setCollapsed(true)}
+              className="hidden lg:flex items-center justify-center text-white/40 hover:text-white/80 transition-colors"
+              title="Collapse sidebar"
+            >
+              <PanelLeftClose size={20} />
+            </button>
+          )}
         </div>
 
         {/* Navigation */}
@@ -108,8 +132,8 @@ export default function AdminSidebar({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group",
                   isActive
-                    ? "bg-accent text-white shadow-sm"
-                    : "text-white/60 hover:text-white hover:bg-white/5"
+                    ? "bg-accent text-[#0f1d35] shadow-sm font-semibold"
+                    : "text-white/60 hover:text-white hover:bg-white/10"
                 )}
                 title={collapsed ? item.label : undefined}
               >
@@ -117,7 +141,7 @@ export default function AdminSidebar({
                   size={18}
                   className={cn(
                     "shrink-0",
-                    isActive ? "text-white" : "text-white/40 group-hover:text-white/80"
+                    isActive ? "text-[#0f1d35]" : "text-white/40 group-hover:text-white/80"
                   )}
                 />
                 {!collapsed && <span className="truncate">{item.label}</span>}
@@ -125,20 +149,6 @@ export default function AdminSidebar({
             );
           })}
         </nav>
-
-        {/* Collapse Toggle (Desktop Only) */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex h-12 items-center justify-center border-t border-white/10 text-white/40 hover:text-white/80 transition-colors shrink-0"
-        >
-          <ChevronLeft
-            size={18}
-            className={cn(
-              "transition-transform duration-300",
-              collapsed && "rotate-180"
-            )}
-          />
-        </button>
       </aside>
     </>
   );

@@ -1,3 +1,5 @@
+import UserForm from "@/components/admin/forms/UserForm";
+import AdminModal from "@/components/admin/AdminModal";
 import Link from "next/link";
 import { Plus, Shield, Pencil } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -7,7 +9,15 @@ import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminUsersPage() {
+type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
+  export default async function AdminUsersPage(props: PageProps) {
+    const searchParams = await props.searchParams;
+    const isNew = searchParams.new === 'true';
+    const editId = searchParams.edit;
+    let editItem = null;
+    if (editId) {
+      editItem = await prisma.user.findUnique({ where: { id: editId } });
+    }
   const session = await auth();
   if (session?.user.role !== "SUPER_ADMIN") {
     redirect("/admin"); // Only Super Admins can view this page
@@ -18,28 +28,19 @@ export default async function AdminUsersPage() {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-2xl font-bold text-govt-text">
+    <div className="space-y-6 w-full max-w-full">
+      <div className="mb-6">
+        <h1 className="font-heading text-2xl font-bold text-govt-text">
             Admin Users
           </h1>
           <p className="text-sm text-govt-muted mt-0.5">
             Manage system access and roles
           </p>
-        </div>
-        <Link
-          href="/admin/users/new"
-          className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
-        >
-          <Plus size={16} />
-          Add User
-        </Link>
       </div>
 
-      <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm whitespace-nowrap">
+      <div className="bg-white rounded-xl border border-govt-border overflow-hidden w-full max-w-full">
+        <div className="w-full max-w-full overflow-x-auto table-scrollbar pb-2">
+          <table className="w-full min-w-[800px] text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">Name</th>
@@ -88,6 +89,26 @@ export default async function AdminUsersPage() {
           </table>
         </div>
       </div>
+      <div className="flex justify-end">
+        <Link
+                    href="?new=true"
+                    className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                  >
+                    <Plus size={16} />
+                    Add User
+                  </Link>
+      </div>
+    
+      {isNew && (
+        <AdminModal returnTo="/admin/users">
+          <UserForm />
+        </AdminModal>
+      )}
+      {editItem && (
+        <AdminModal returnTo="/admin/users">
+          <UserForm user={editItem} />
+        </AdminModal>
+      )}
     </div>
   );
 }

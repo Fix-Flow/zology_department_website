@@ -181,12 +181,12 @@ export default async function AdminDashboardPage() {
         <h2 className="font-heading font-bold text-lg text-govt-text mb-4">
           Quick Actions
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {quickActions.map((action) => (
             <Link
               key={action.label}
               href={action.href}
-              className="flex items-center gap-2.5 px-4 py-3 bg-primary/5 hover:bg-primary/10 rounded-lg text-sm font-medium text-primary transition-colors"
+              className="flex items-center gap-2.5 px-4 py-3 bg-primary/5 hover:bg-primary/10 rounded-lg text-sm font-medium text-primary transition-colors justify-center sm:justify-start"
             >
               <Plus size={16} />
               {action.label}

@@ -121,13 +121,13 @@
     line-height: 1.7;
   }
 
-  a {
+  :where(a) {
     color: var(--primary);
     text-decoration: none;
     transition: color var(--transition-fast);
   }
 
-  a:hover {
+  :where(a):hover {
     color: var(--primary-dark);
   }
 
@@ -616,7 +616,23 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
+  animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Horizontal Scrollbar for Admin Tables */
+.table-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+.table-scrollbar::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 4px;
+}
+.table-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.table-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Slide in from left */

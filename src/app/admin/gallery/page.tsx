@@ -1,3 +1,5 @@
+import GalleryUploadForm from "@/components/admin/forms/GalleryUploadForm";
+import AdminModal from "@/components/admin/AdminModal";
 import Link from "next/link";
 import { Plus, Image as ImageIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -5,30 +7,24 @@ import DeleteGalleryImageButton from "@/components/admin/buttons/DeleteGalleryIm
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminGalleryPage() {
+type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
+  export default async function AdminGalleryPage(props: PageProps) {
+    const searchParams = await props.searchParams;
+    const isNew = searchParams.new === 'true';
   const images = await prisma.galleryImage.findMany({
     where: { isActive: true },
     orderBy: { createdAt: "desc" },
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-2xl font-bold text-govt-text">
+    <div className="space-y-6 w-full max-w-full">
+      <div className="mb-6">
+        <h1 className="font-heading text-2xl font-bold text-govt-text">
             Photo Gallery
           </h1>
           <p className="text-sm text-govt-muted mt-0.5">
             Manage department photos and campus pictures
           </p>
-        </div>
-        <Link
-          href="/admin/gallery/new"
-          className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
-        >
-          <Plus size={16} />
-          Upload Image
-        </Link>
       </div>
 
       {images.length === 0 ? (
@@ -36,7 +32,7 @@ export default async function AdminGalleryPage() {
           <ImageIcon size={32} className="mx-auto mb-3 text-govt-muted/40" />
           <p>No images in gallery.</p>
           <Link
-            href="/admin/gallery/new"
+            href="?new=true"
             className="text-primary hover:underline mt-1 inline-block text-sm"
           >
             Upload your first image
@@ -69,6 +65,12 @@ export default async function AdminGalleryPage() {
             </div>
           ))}
         </div>
+      )}
+    
+      {isNew && (
+        <AdminModal returnTo="/admin/gallery">
+          <GalleryUploadForm />
+        </AdminModal>
       )}
     </div>
   );

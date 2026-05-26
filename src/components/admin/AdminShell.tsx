@@ -33,12 +33,12 @@ export default function AdminShell({ children }: AdminShellProps) {
         setMobileOpen={setMobileOpen}
       />
       <div 
-        className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${
+        className={`flex min-h-screen flex-1 flex-col min-w-0 transition-all duration-300 ${
           collapsed ? "lg:ml-[68px]" : "lg:ml-[240px]"
         }`}
       >
         <AdminTopbar setMobileOpen={setMobileOpen} />
-        <main className="flex-1 p-4 sm:p-6 overflow-x-hidden">{children}</main>
+        <main className="flex-1 w-full max-w-full min-w-0 p-4 sm:p-6 overflow-x-hidden">{children}</main>
       </div>
     </div>
   );

@@ -426,7 +426,7 @@ export default function FacultyForm({ faculty }: FacultyFormProps) {
         </div>
 
         {/* Submit */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button
             type="submit"
             disabled={isPending || isUploading}

@@ -1,3 +1,5 @@
+import FacultyForm from "@/components/admin/forms/FacultyForm";
+import AdminModal from "@/components/admin/AdminModal";
 import Link from "next/link";
 import { Plus, Users, Pencil } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -5,37 +7,36 @@ import DeleteFacultyButton from "@/components/admin/buttons/DeleteFacultyButton"
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminFacultyPage() {
+type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
+  export default async function AdminFacultyPage(props: PageProps) {
+    const searchParams = await props.searchParams;
+    const isNew = searchParams.new === 'true';
+    const editId = searchParams.edit;
+    let editItem = null;
+    if (editId) {
+      editItem = await prisma.faculty.findUnique({ where: { id: editId } });
+    }
   const facultyList = await prisma.faculty.findMany({
     where: { isActive: true },
     orderBy: [{ category: "asc" }, { displayOrder: "asc" }, { name: "asc" }],
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-full">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-2xl font-bold text-govt-text">
+      <div className="mb-6">
+        <h1 className="font-heading text-2xl font-bold text-govt-text">
             Faculty Directory
           </h1>
           <p className="text-sm text-govt-muted mt-0.5">
             Manage teaching and non-teaching staff profiles
           </p>
-        </div>
-        <Link
-          href="/admin/faculty/new"
-          className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
-        >
-          <Plus size={16} />
-          Add Faculty
-        </Link>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm whitespace-nowrap">
+      <div className="bg-white rounded-xl border border-govt-border overflow-hidden w-full max-w-full">
+        <div className="w-full max-w-full overflow-x-auto table-scrollbar pb-2">
+          <table className="w-full min-w-[800px] text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">
@@ -68,7 +69,7 @@ export default async function AdminFacultyPage() {
                     />
                     <p>No faculty members found.</p>
                     <Link
-                      href="/admin/faculty/new"
+                      href="?new=true"
                       className="text-primary hover:underline mt-1 inline-block"
                     >
                       Add your first faculty member
@@ -122,7 +123,7 @@ export default async function AdminFacultyPage() {
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          href={`/admin/faculty/${faculty.id}/edit`}
+                          href={`?edit=${faculty.id}`}
                           className="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-colors"
                           title="Edit"
                         >
@@ -138,6 +139,26 @@ export default async function AdminFacultyPage() {
           </table>
         </div>
       </div>
+      <div className="flex justify-end">
+        <Link
+                    href="?new=true"
+                    className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                  >
+                    <Plus size={16} />
+                    Add Faculty
+                  </Link>
+      </div>
+    
+      {isNew && (
+        <AdminModal returnTo="/admin/faculty">
+          <FacultyForm />
+        </AdminModal>
+      )}
+      {editItem && (
+        <AdminModal returnTo="/admin/faculty">
+          <FacultyForm faculty={editItem} />
+        </AdminModal>
+      )}
     </div>
   );
 }

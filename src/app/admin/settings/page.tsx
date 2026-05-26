@@ -13,7 +13,7 @@ export default async function AdminSettingsPage() {
   }, {} as Record<string, string>);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-full">
       <div>
         <h1 className="font-heading text-2xl font-bold text-govt-text">
           Site Settings

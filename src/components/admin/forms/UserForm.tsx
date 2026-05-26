@@ -119,7 +119,7 @@ export default function UserForm({ user }: UserFormProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button
             type="submit"
             disabled={isPending}

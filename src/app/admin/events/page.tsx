@@ -1,3 +1,5 @@
+import EventForm from "@/components/admin/forms/EventForm";
+import AdminModal from "@/components/admin/AdminModal";
 import Link from "next/link";
 import { Plus, Calendar, Pencil, Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -5,37 +7,36 @@ import DeleteEventButton from "@/components/admin/buttons/DeleteEventButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminEventsPage() {
+type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
+  export default async function AdminEventsPage(props: PageProps) {
+    const searchParams = await props.searchParams;
+    const isNew = searchParams.new === 'true';
+    const editId = searchParams.edit;
+    let editItem = null;
+    if (editId) {
+      editItem = await prisma.event.findUnique({ where: { id: editId } });
+    }
   const events = await prisma.event.findMany({
     where: { isActive: true },
     orderBy: { date: "desc" },
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-full">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-2xl font-bold text-govt-text">
+      <div className="mb-6">
+        <h1 className="font-heading text-2xl font-bold text-govt-text">
             Events & Activities
           </h1>
           <p className="text-sm text-govt-muted mt-0.5">
             Manage department workshops, seminars, and field visits
           </p>
-        </div>
-        <Link
-          href="/admin/events/new"
-          className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
-        >
-          <Plus size={16} />
-          Add Event
-        </Link>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm whitespace-nowrap">
+      <div className="bg-white rounded-xl border border-govt-border overflow-hidden w-full max-w-full">
+        <div className="w-full max-w-full overflow-x-auto table-scrollbar pb-2">
+          <table className="w-full min-w-[800px] text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">
@@ -68,7 +69,7 @@ export default async function AdminEventsPage() {
                     />
                     <p>No events found.</p>
                     <Link
-                      href="/admin/events/new"
+                      href="?new=true"
                       className="text-primary hover:underline mt-1 inline-block"
                     >
                       Create your first event
@@ -119,7 +120,7 @@ export default async function AdminEventsPage() {
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-2">
                         <Link
-                          href={`/admin/events/${event.id}/edit`}
+                          href={`?edit=${event.id}`}
                           className="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-colors"
                           title="Edit"
                         >
@@ -135,6 +136,26 @@ export default async function AdminEventsPage() {
           </table>
         </div>
       </div>
+      <div className="flex justify-end">
+        <Link
+                    href="?new=true"
+                    className="bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                  >
+                    <Plus size={16} />
+                    Add Event
+                  </Link>
+      </div>
+    
+      {isNew && (
+        <AdminModal returnTo="/admin/events">
+          <EventForm />
+        </AdminModal>
+      )}
+      {editItem && (
+        <AdminModal returnTo="/admin/events">
+          <EventForm event={editItem} />
+        </AdminModal>
+      )}
     </div>
   );
 }
