@@ -30,11 +30,11 @@ export default function Header() {
           <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0">
             <span className="text-white font-heading font-bold text-lg">Z</span>
           </div>
-          <div className="hidden sm:block">
-            <h1 className="font-heading font-bold text-primary text-sm leading-tight">
+          <div className="flex flex-col justify-center">
+            <h1 className="font-heading font-bold text-primary text-xs sm:text-sm leading-tight line-clamp-2 sm:line-clamp-1">
               {SITE_NAME}
             </h1>
-            <p className="text-[11px] text-govt-muted leading-tight mt-0.5">
+            <p className="hidden xs:block text-[10px] sm:text-[11px] text-govt-muted leading-tight mt-0.5 truncate">
               {COLLEGE_SHORT} · NAAC &lsquo;{NAAC_GRADE}&rsquo; Grade
             </p>
           </div>
@@ -94,6 +94,11 @@ function DesktopNavItem({ item }: { item: NavItem }) {
         className="flex items-center gap-1 px-2.5 py-2 text-[13px] font-semibold text-govt-text hover:text-primary transition-colors rounded-md hover:bg-primary/5"
         aria-expanded={isOpen}
         aria-haspopup="true"
+        onClick={(e) => {
+          if (item.href === "#") {
+            e.preventDefault();
+          }
+        }}
       >
         {item.label}
         <ChevronDown
@@ -118,7 +123,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
 
           {item.children!.map((child) => (
             <Link
-              key={child.href}
+              key={child.label}
               href={child.href}
               className="block px-4 py-2 text-sm text-govt-text hover:text-primary hover:bg-neutral-bg transition-colors"
               onClick={() => setIsOpen(false)}

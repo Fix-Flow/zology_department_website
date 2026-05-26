@@ -14,7 +14,7 @@ export const CONTACT_EMAIL = "zoology@gdcsiddipet.ac.in";
 export const CONTACT_PHONE = "+91-08457-222333";
 export const CONTACT_PHONE_DISPLAY = "08457-222333";
 export const HOD_EMAIL = "hod.zoology@gdcsiddipet.ac.in";
-export const HOD_PHONE = "+91-98765-43210";
+export const HOD_PHONE = "";
 
 // ─── Address ───
 export const ADDRESS = {
@@ -51,7 +51,7 @@ export const SOCIAL_LINKS = {
 
 // ─── Google Maps ───
 export const GOOGLE_MAPS_EMBED_URL =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3787.123456!2d78.8519!3d18.1018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGovernment+Degree+College+Siddipet!5e0!3m2!1sen!2sin!4v1234567890";
+  "https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Government%20Degree%20College%20Siddipet&t=&z=15&ie=UTF8&iwloc=B&output=embed";
 
 // ─── SEO Defaults ───
 export const SEO = {

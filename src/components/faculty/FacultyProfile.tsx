@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   Mail,
-  Phone,
   BookOpen,
   Award,
   Beaker,
@@ -76,17 +75,6 @@ export default function FacultyProfile({ faculty }: FacultyProfileProps) {
                     {faculty.email}
                   </a>
                 </div>
-                {faculty.phone && (
-                  <div className="flex items-center gap-2.5">
-                    <Phone size={15} className="text-accent shrink-0" />
-                    <a
-                      href={`tel:${faculty.phone}`}
-                      className="text-govt-text hover:text-primary transition-colors"
-                    >
-                      {faculty.phone}
-                    </a>
-                  </div>
-                )}
                 <div className="flex items-center gap-2.5">
                   <Clock size={15} className="text-accent shrink-0" />
                   <span className="text-govt-muted">

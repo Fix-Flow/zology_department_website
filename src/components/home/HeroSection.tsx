@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SITE_NAME, COLLEGE_NAME, NAAC_GRADE } from "@/lib/constants";
@@ -7,13 +8,14 @@ import { SITE_NAME, COLLEGE_NAME, NAAC_GRADE } from "@/lib/constants";
 export default function HeroSection() {
   return (
     <section className="relative bg-primary overflow-hidden" id="hero">
-      {/* Background pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.07]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
+      {/* Background Image */}
+      <div className="absolute inset-0 opacity-20 mix-blend-overlay">
+        <Image
+          src="/images/og-image.jpg"
+          alt={`${SITE_NAME} Campus`}
+          fill
+          priority
+          className="object-cover"
         />
       </div>
 
@@ -31,33 +33,33 @@ export default function HeroSection() {
           </div>
 
           {/* Department Name */}
-          <h1 className="font-heading text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          <h1 className="font-heading text-white text-[clamp(2rem,6vw+1rem,3.5rem)] font-bold leading-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
             {SITE_NAME}
           </h1>
 
           {/* College Name */}
-          <p className="mt-3 text-white/70 text-base sm:text-lg font-body animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <p className="mt-3 text-white/80 text-[clamp(1rem,3vw+0.5rem,1.125rem)] font-body animate-fade-in" style={{ animationDelay: "0.2s" }}>
             {COLLEGE_NAME}
           </p>
 
           {/* Tagline */}
-          <p className="mt-4 text-white/50 text-sm sm:text-base max-w-xl leading-relaxed font-body animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <p className="mt-4 text-white/60 text-sm sm:text-base max-w-xl leading-relaxed font-body animate-fade-in" style={{ animationDelay: "0.3s" }}>
             Nurturing scientific temper, academic excellence, and innovation in
             biological sciences since 1985.
           </p>
 
           {/* CTA Buttons */}
-          <div className="mt-8 flex flex-wrap gap-3 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <Link
               href="/courses"
-              className="btn-accent group"
+              className="btn-accent group w-full sm:w-auto justify-center"
             >
               Explore Courses
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               href="/admissions"
-              className="btn-outline !text-white !border-white/40 hover:!bg-white hover:!text-primary"
+              className="btn-outline !text-white !border-white/40 hover:!bg-white hover:!text-primary w-full sm:w-auto justify-center"
             >
               View Admissions
             </Link>

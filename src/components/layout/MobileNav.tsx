@@ -124,14 +124,20 @@ function MobileNavItem({
       >
         <Link
           href={item.href}
-          onClick={onClose}
+          onClick={(e) => {
+            if (item.href === "#") {
+              e.preventDefault();
+            } else {
+              onClose();
+            }
+          }}
           className="block px-8 py-2.5 text-sm text-govt-muted hover:text-primary hover:bg-neutral-bg transition-colors"
         >
           All {item.label}
         </Link>
         {item.children!.map((child) => (
           <Link
-            key={child.href}
+            key={child.label}
             href={child.href}
             onClick={onClose}
             className="block px-8 py-2.5 text-sm text-govt-muted hover:text-primary hover:bg-neutral-bg transition-colors"

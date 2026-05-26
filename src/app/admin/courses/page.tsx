@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus, BookOpen, Pencil } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import DeleteCourseButton from "./DeleteCourseButton";
+import DeleteCourseButton from "@/components/admin/buttons/DeleteCourseButton";
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +33,7 @@ export default async function AdminCoursesPage() {
 
       <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">

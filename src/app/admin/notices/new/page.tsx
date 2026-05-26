@@ -1,4 +1,4 @@
-import NoticeForm from "../[id]/NoticeForm";
+import NoticeForm from "@/components/admin/forms/NoticeForm";
 
 export default function NewNoticePage() {
   return <NoticeForm />;

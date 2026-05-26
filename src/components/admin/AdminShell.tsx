@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+
+import { useState, useEffect } from "react";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminTopbar from "@/components/admin/AdminTopbar";
 
@@ -9,19 +10,35 @@ type AdminShellProps = {
 };
 
 export default function AdminShell({ children }: AdminShellProps) {
-  const pathname = usePathname();
-  const isLoginRoute = pathname === "/admin/login";
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  if (isLoginRoute) {
-    return <>{children}</>;
-  }
+  // Close mobile sidebar on route change or resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-slate-100">
-      <AdminSidebar />
-      <div className="ml-[240px] flex min-h-screen flex-1 flex-col transition-all duration-300">
-        <AdminTopbar />
-        <main className="flex-1 p-6">{children}</main>
+      <AdminSidebar
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+      />
+      <div 
+        className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${
+          collapsed ? "lg:ml-[68px]" : "lg:ml-[240px]"
+        }`}
+      >
+        <AdminTopbar setMobileOpen={setMobileOpen} />
+        <main className="flex-1 p-4 sm:p-6 overflow-x-hidden">{children}</main>
       </div>
     </div>
   );

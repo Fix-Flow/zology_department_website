@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus, Image as ImageIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import DeleteGalleryImageButton from "./DeleteGalleryImageButton";
+import DeleteGalleryImageButton from "@/components/admin/buttons/DeleteGalleryImageButton";
 
 export const dynamic = "force-dynamic";
 

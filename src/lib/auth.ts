@@ -27,7 +27,7 @@ declare module "@auth/core/jwt" {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
-    signIn: "/admin/login",
+    signIn: "/login",
   },
   session: {
     strategy: "jwt",
@@ -89,10 +89,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isAdminRoute = nextUrl.pathname.startsWith("/admin");
-      const isLoginPage = nextUrl.pathname === "/admin/login";
+      const isLoginPage = nextUrl.pathname === "/login";
 
       if (isAdminRoute && !isLoginPage && !isLoggedIn) {
-        return Response.redirect(new URL("/admin/login", nextUrl));
+        return Response.redirect(new URL("/login", nextUrl));
       }
 
       if (isLoginPage && isLoggedIn) {

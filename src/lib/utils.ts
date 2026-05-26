@@ -92,3 +92,14 @@ export function isRecent(dateString: string, days: number = 7): boolean {
   const diff = now.getTime() - date.getTime();
   return diff >= 0 && diff <= days * 24 * 60 * 60 * 1000;
 }
+
+/**
+ * Convert comma-separated string to an array of trimmed strings.
+ */
+export function parseCsv(str?: string | null, delimiter: string | RegExp = ","): string[] {
+  if (!str) return [];
+  return str
+    .split(delimiter)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}

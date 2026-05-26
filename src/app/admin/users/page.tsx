@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus, Shield, Pencil } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import ToggleUserStatusButton from "./ToggleUserStatusButton";
+import ToggleUserStatusButton from "@/components/admin/buttons/ToggleUserStatusButton";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -39,7 +39,7 @@ export default async function AdminUsersPage() {
 
       <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">Name</th>
@@ -71,7 +71,7 @@ export default async function AdminUsersPage() {
                   <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-2">
                       <Link
-                        href={`/admin/users/${user.id}/edit`}
+                        href={`/admin/users/${user.id}`}
                         className="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-colors"
                         title="Edit"
                       >

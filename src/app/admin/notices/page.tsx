@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Plus, Bell, Pencil, Trash2, Star } from "lucide-react";
+import { Plus, Bell, Pencil, Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import DeleteNoticeButton from "./DeleteNoticeButton";
+import DeleteNoticeButton from "@/components/admin/buttons/DeleteNoticeButton";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +35,7 @@ export default async function AdminNoticesPage() {
       {/* Table */}
       <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm whitespace-nowrap">
             <thead>
               <tr className="bg-neutral-bg border-b border-govt-border">
                 <th className="text-left px-5 py-3 font-semibold text-govt-text">

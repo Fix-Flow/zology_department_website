@@ -1,4 +1,4 @@
-import DownloadForm from "../[id]/DownloadForm";
+import DownloadForm from "@/components/admin/forms/DownloadForm";
 
 export const dynamic = "force-dynamic";
 

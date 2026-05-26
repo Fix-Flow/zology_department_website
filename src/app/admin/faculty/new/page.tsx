@@ -1,4 +1,4 @@
-import FacultyForm from "../[id]/FacultyForm";
+import FacultyForm from "@/components/admin/forms/FacultyForm";
 
 export const dynamic = "force-dynamic";
 

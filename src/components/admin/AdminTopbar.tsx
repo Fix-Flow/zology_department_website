@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { LogOut, User, Shield } from "lucide-react";
+import { LogOut, User, Shield, Menu } from "lucide-react";
 import { useState } from "react";
 
 const roleLabels: Record<string, string> = {
@@ -18,16 +18,26 @@ const roleColors: Record<string, string> = {
   EVENT_MANAGER: "bg-purple-50 text-purple-700 border-purple-200",
 };
 
-export default function AdminTopbar() {
+type AdminTopbarProps = {
+  setMobileOpen: (val: boolean) => void;
+};
+
+export default function AdminTopbar({ setMobileOpen }: AdminTopbarProps) {
   const { data: session } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const role = session?.user?.role || "CONTENT_EDITOR";
 
   return (
-    <header className="h-16 bg-white border-b border-govt-border flex items-center justify-between px-6 shrink-0 sticky top-0 z-30">
-      <div>
-        <h2 className="text-sm font-heading font-bold text-govt-text">
+    <header className="h-16 bg-white border-b border-govt-border flex items-center justify-between px-4 sm:px-6 shrink-0 sticky top-0 z-30">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="lg:hidden p-2 -ml-2 text-govt-muted hover:bg-neutral-bg rounded-lg"
+        >
+          <Menu size={20} />
+        </button>
+        <h2 className="text-sm font-heading font-bold text-govt-text hidden sm:block">
           Department of Zoology — Admin
         </h2>
       </div>

@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GDC Zoology Department Website
+
+The official website for the Department of Zoology at Government Degree College (Autonomous), Siddipet. Built with Next.js (App Router), Prisma, Neon (Serverless Postgres), NextAuth v5, and Cloudinary.
+
+## Tech Stack
+- **Framework:** Next.js (App Router)
+- **Database:** PostgreSQL (Neon Serverless)
+- **ORM:** Prisma
+- **Authentication:** NextAuth v5 (Auth.js)
+- **Media Storage:** Cloudinary
+- **Styling:** Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### 1. Prerequisites
+- Node.js 18+
+- npm or yarn
+- A PostgreSQL database (Neon recommended)
+- A Cloudinary account
 
+### 2. Installation
+Clone the repository and install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Environment Variables
+Copy the example environment file and fill in your details:
+```bash
+cp .env.example .env
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Required Variables:**
+- `DATABASE_URL`: Neon pooled connection string (used by Prisma Client).
+- `DIRECT_DATABASE_URL`: Direct TCP connection string (used by Prisma migrations).
+- `AUTH_SECRET`: Generate using `openssl rand -base64 32`.
+- `AUTH_URL`: Typically `http://localhost:3000` in development.
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`: From your Cloudinary dashboard.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Database Setup
+Push the schema to your database:
+```bash
+npx prisma db push
+```
 
-## Learn More
+### 5. Seeding the Admin User
+You can seed your first super admin user directly via Prisma Studio:
+1. Run `npx prisma studio`
+2. Open `http://localhost:5555`
+3. Navigate to the **User** model and add a new row:
+   - `email`: Your email
+   - `name`: Your name
+   - `role`: `SUPER_ADMIN`
+   - `password`: A secure bcrypt hash of your chosen password. (You can generate one using an online bcrypt generator or a local node script, e.g., `node -e "console.log(require('bcryptjs').hashSync('yourpassword', 10))"`).
 
-To learn more about Next.js, take a look at the following resources:
+### 6. Development Server
+Run the development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is optimized for deployment on [Vercel](https://vercel.com).
+1. Push your code to a GitHub repository.
+2. Import the project in Vercel.
+3. Add all the environment variables from your `.env` file into the Vercel project settings.
+4. Vercel will automatically build and deploy your Next.js application.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Folder Structure
+- `/src/app`: Next.js App Router (Public pages & API routes).
+- `/src/app/admin`: Protected admin dashboard (Requires Authentication).
+- `/src/components`: Reusable UI components (Events, Faculty, Layout).
+- `/src/lib`: Utility functions, Prisma singleton, and Auth config.
+- `/src/types`: TypeScript definitions.
+- `/prisma`: Prisma schema definition.
+- `/public`: Static assets.

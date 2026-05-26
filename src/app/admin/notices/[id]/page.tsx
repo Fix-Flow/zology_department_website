@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import NoticeForm from "./NoticeForm";
+import NoticeForm from "@/components/admin/forms/NoticeForm";
 
 export const dynamic = "force-dynamic";
 

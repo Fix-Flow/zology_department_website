@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Merriweather, Source_Sans_3 } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-import AppShell from "@/components/layout/AppShell";
 
 const merriweather = Merriweather({
   variable: "--font-heading",
@@ -57,7 +57,8 @@ export default function RootLayout({
       className={`${merriweather.variable} ${sourceSans.variable} h-full`}
     >
       <body className="min-h-full flex flex-col font-body antialiased">
-        <AppShell>{children}</AppShell>
+        <NextTopLoader color="#1a365d" showSpinner={false} />
+        {children}
       </body>
     </html>
   );

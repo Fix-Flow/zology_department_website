@@ -26,9 +26,10 @@ export async function uploadToCloudinary(
   fileDataUri: string,
   folder: UploadFolder
 ): Promise<{ url: string; publicId: string }> {
+  const isImageFolder = ["faculty", "events", "gallery"].includes(folder);
   const result = await cloudinary.uploader.upload(fileDataUri, {
     folder: `gdc-zoology/${folder}`,
-    resource_type: "auto",
+    resource_type: isImageFolder ? "image" : "auto",
     transformation:
       folder === "faculty"
         ? [{ width: 400, height: 500, crop: "fill", gravity: "face" }]
@@ -55,13 +56,3 @@ export async function deleteFromCloudinary(
   });
 }
 
-/**
- * Convert a File object to a base64 data URI for upload.
- */
-export async function fileToDataUri(file: File): Promise<string> {
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  const base64 = buffer.toString("base64");
-  const mimeType = file.type;
-  return `data:${mimeType};base64,${base64}`;
-}

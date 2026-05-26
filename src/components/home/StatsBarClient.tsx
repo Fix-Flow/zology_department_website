@@ -39,7 +39,7 @@ export default function StatsBarClient({ stats }: { stats: StatItem[] }) {
   return (
     <section className="bg-white border-y border-govt-border" ref={ref}>
       <div className="section-container py-8 sm:py-10">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
           {stats.map((stat, index) => (
             <div
               key={stat.label}

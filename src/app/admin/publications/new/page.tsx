@@ -1,4 +1,4 @@
-import PublicationForm from "../[id]/PublicationForm";
+import PublicationForm from "@/components/admin/forms/PublicationForm";
 
 export const dynamic = "force-dynamic";
 

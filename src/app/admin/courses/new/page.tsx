@@ -1,4 +1,4 @@
-import CourseForm from "../[id]/CourseForm";
+import CourseForm from "@/components/admin/forms/CourseForm";
 
 export const dynamic = "force-dynamic";
 

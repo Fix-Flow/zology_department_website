@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import FacultyForm from "./FacultyForm";
+import FacultyForm from "@/components/admin/forms/FacultyForm";
 
 export const dynamic = "force-dynamic";
 

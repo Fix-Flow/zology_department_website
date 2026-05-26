@@ -1,4 +1,4 @@
-import UserForm from "./UserForm";
+import UserForm from "@/components/admin/forms/UserForm";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
