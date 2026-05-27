@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { hasPermission } from "@/lib/rbac";
 import {
   LayoutDashboard,
   Bell,
@@ -50,6 +52,7 @@ export default function AdminSidebar({
   setMobileOpen,
 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -119,6 +122,11 @@ export default function AdminSidebar({
         {/* Navigation */}
         <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
+            // Check if the user has permission to see this route
+            if (!hasPermission(session?.user?.role as any, item.href)) {
+              return null;
+            }
+
             const isActive =
               item.href === "/admin"
                 ? pathname === "/admin"

@@ -12,9 +12,9 @@ export const navigation: NavItem[] = [
     children: [
       { label: "Department Profile", href: "/about" },
       { label: "Vision & Mission", href: "/about#vision-mission" },
-      { label: "HoD Message", href: "/#hod-message" },
+      { label: "HoD Message", href: "/about#hod-message" },
       { label: "History of Department", href: "/about#history" },
-      { label: "Infrastructure", href: "/facilities" },
+      { label: "Infrastructure", href: "/about#facilities" },
       { label: "Achievements", href: "/about#achievements" },
     ],
   },

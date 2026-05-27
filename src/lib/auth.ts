@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import type { Role } from "@prisma/client";
+import { hasPermission } from "@/lib/rbac";
 
 declare module "next-auth" {
   interface User {
@@ -91,8 +92,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const isAdminRoute = nextUrl.pathname.startsWith("/admin");
       const isLoginPage = nextUrl.pathname === "/login";
 
-      if (isAdminRoute && !isLoginPage && !isLoggedIn) {
-        return Response.redirect(new URL("/login", nextUrl));
+      if (isAdminRoute && !isLoginPage) {
+        if (!isLoggedIn) {
+          return Response.redirect(new URL("/login", nextUrl));
+        }
+        
+        if (!hasPermission(auth?.user?.role, nextUrl.pathname)) {
+          // If trying to access a restricted section, redirect to the main admin dashboard
+          // which is available to all authenticated roles
+          return Response.redirect(new URL("/admin", nextUrl));
+        }
       }
 
       if (isLoginPage && isLoggedIn) {
