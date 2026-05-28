@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Calendar, MapPin, User, ArrowRight } from "lucide-react";
 import { Event } from "@/types/event";
 
+
 export default function EventCard({ event }: { event: Event }) {
   // Format the date nicely
   const eventDate = new Date(event.date);
@@ -10,7 +11,7 @@ export default function EventCard({ event }: { event: Event }) {
   const year = eventDate.getFullYear();
 
   return (
-    <div className="card group flex flex-col h-full overflow-hidden">
+    <div data-component="EventCard" className="card group flex flex-col h-full overflow-hidden">
       {/* Header/Image Area */}
       <div className="h-48 bg-neutral-bg relative overflow-hidden flex-shrink-0">
         {/* Placeholder if no image */}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { navigation, NavItem } from "@/data/navigation";
 
+
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -101,7 +102,7 @@ function MobileNavItem({
   }
 
   return (
-    <div>
+    <div data-component="MobileNav">
       <button
         onClick={onToggleDropdown}
         className="flex w-full items-center justify-between px-5 py-3 text-sm font-semibold text-govt-text hover:bg-neutral-bg transition-colors"

@@ -7,6 +7,7 @@ import ToggleUserStatusButton from "@/components/admin/buttons/ToggleUserStatusB
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+
 export const dynamic = "force-dynamic";
 
 type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
@@ -28,7 +29,7 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
   });
 
   return (
-    <div className="space-y-6 w-full max-w-full">
+    <div data-component="Users_page" className="space-y-6 w-full max-w-full">
       <div className="mb-6">
         <h1 className="font-heading text-2xl font-bold text-govt-text">
             Admin Users

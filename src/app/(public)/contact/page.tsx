@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import { COLLEGE_NAME, CONTACT_EMAIL, CONTACT_PHONE, GOOGLE_MAPS_EMBED_URL, HOD_EMAIL } from "@/lib/constants";
 
+
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Get in touch with the Department of Zoology at GDC Siddipet.",
@@ -16,7 +17,7 @@ export default function ContactPage() {
         subtitle="We are here to answer your academic inquiries and support your educational journey"
       />
 
-      <div className="section-container section-padding">
+      <div data-component="Contact_page" className="section-container section-padding">
         <div className="grid gap-12 lg:grid-cols-[1fr_400px]">
           {/* Contact Details */}
           <div className="space-y-8">

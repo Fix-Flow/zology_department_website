@@ -7,6 +7,7 @@ import { navigation, NavItem } from "@/data/navigation";
 import { SITE_NAME, COLLEGE_SHORT, NAAC_GRADE } from "@/lib/constants";
 import MobileNav from "./MobileNav";
 
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -17,7 +18,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header
+    <header data-component="Header"
       className={`sticky top-0 z-30 bg-white transition-shadow duration-200 ${
         scrolled ? "shadow-md" : "shadow-sm"
       }`}

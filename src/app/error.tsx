@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+
 export default function Error({
   error,
   reset,
@@ -15,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 p-8 text-center">
+    <div data-component="error" className="flex flex-col items-center justify-center min-h-[400px] gap-4 p-8 text-center">
       <h2 className="text-2xl font-bold tracking-tight text-red-600">
         Something went wrong!
       </h2>

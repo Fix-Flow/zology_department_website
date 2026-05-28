@@ -28,7 +28,7 @@ export default function ToggleUserStatusButton({
   }
 
   return (
-    <button
+    <button data-component="ToggleUserStatusButton"
       onClick={handleToggle}
       disabled={loading}
       className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${

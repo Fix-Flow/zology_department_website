@@ -1,3 +1,4 @@
+
 interface PageHeroProps {
   title: string;
   subtitle?: string;
@@ -5,7 +6,7 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle }: PageHeroProps) {
   return (
-    <div className="page-hero">
+    <div data-component="PageHero" className="page-hero">
       <div className="section-container">
         <h1 className="font-heading text-page-title text-white">{title}</h1>
         {subtitle && (

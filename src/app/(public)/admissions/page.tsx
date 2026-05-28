@@ -4,6 +4,7 @@ import { Link2, CheckCircle2, FileText, CalendarClock } from "lucide-react";
 import type { Metadata } from "next";
 import { ADMISSIONS_URL, COLLEGE_NAME } from "@/lib/constants";
 
+
 export const metadata: Metadata = {
   title: "Admissions",
   description: "Admission process and guidelines for UG and PG Zoology programmes at GDC Siddipet via DOST and CPGET.",
@@ -17,7 +18,7 @@ export default function AdmissionsPage() {
         subtitle="Join our community of biological science scholars through a transparent, merit-based admission process"
       />
 
-      <div className="section-container section-padding">
+      <div data-component="Admissions_page" className="section-container section-padding">
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Undergraduate Admissions */}
           <section className="space-y-6">

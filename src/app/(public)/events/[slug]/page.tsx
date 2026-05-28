@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, MapPin, User, Download, Image as ImageIcon } from 
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -49,7 +50,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
   });
 
   return (
-    <div className="section-container section-padding">
+    <div data-component="[slug]_page" className="section-container section-padding">
       <Link
         href="/events"
         className="inline-flex items-center gap-1.5 text-sm text-govt-muted hover:text-primary transition-colors mb-8"

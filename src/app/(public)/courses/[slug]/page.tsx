@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, Users, GraduationCap, Download, CheckCircle2, Briefca
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -48,7 +49,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
       : "Skill Enhancement";
 
   return (
-    <div className="section-container section-padding">
+    <div data-component="[slug]_page" className="section-container section-padding">
       <Link
         href="/courses"
         className="inline-flex items-center gap-1.5 text-sm text-govt-muted hover:text-primary transition-colors mb-8"

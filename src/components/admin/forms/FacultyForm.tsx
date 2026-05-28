@@ -13,6 +13,7 @@ import {
 } from "@/actions/admin/faculty";
 import { uploadImageAction } from "@/actions/admin/upload";
 
+
 function fileToDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -103,7 +104,7 @@ export default function FacultyForm({ faculty }: FacultyFormProps) {
   }
 
   return (
-    <div className="max-w-4xl">
+    <div data-component="FacultyForm" className="max-w-4xl">
       {/* Header */}
       <div className="mb-8">
         <Link

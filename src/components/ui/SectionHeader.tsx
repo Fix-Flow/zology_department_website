@@ -1,3 +1,4 @@
+
 interface SectionHeaderProps {
   title: string;
   subtitle?: string;
@@ -12,7 +13,7 @@ export default function SectionHeader({
   className = "",
 }: SectionHeaderProps) {
   return (
-    <div className={`mb-8 ${centered ? "text-center" : ""} ${className}`}>
+    <div data-component="SectionHeader" className={`mb-8 ${centered ? "text-center" : ""} ${className}`}>
       <h2 className="font-heading text-section-head text-govt-text">
         {title}
       </h2>

@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
+    <html data-component="App_layout"
       lang="en"
       className={`${merriweather.variable} ${sourceSans.variable} h-full`}
     >

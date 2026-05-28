@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { updateSettings, type SettingsFormState } from "@/actions/admin/settings";
 import { uploadImageAction } from "@/actions/admin/upload";
 
+
 function fileToDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -57,7 +58,7 @@ export default function SettingsForm({ settings }: { settings: Record<string, st
   }
 
   return (
-    <form action={formAction} className="space-y-8 max-w-4xl">
+    <form data-component="SettingsForm" action={formAction} className="space-y-8 max-w-4xl">
       {/* HOD Details Section */}
       <div className="bg-white rounded-xl border border-govt-border overflow-hidden">
         <div className="px-6 py-4 border-b border-govt-border bg-neutral-bg/50">

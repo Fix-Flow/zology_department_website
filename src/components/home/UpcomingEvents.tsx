@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 import SectionHeader from "@/components/ui/SectionHeader";
 
+
 export default async function UpcomingEvents() {
   const featuredEvents = await prisma.event.findMany({
     where: { featured: true, isActive: true },
@@ -14,7 +15,7 @@ export default async function UpcomingEvents() {
   if (featuredEvents.length === 0) return null;
 
   return (
-    <section className="section-padding bg-white">
+    <section data-component="UpcomingEvents" className="section-padding bg-white">
       <div className="section-container">
         <div className="flex items-end justify-between mb-8">
           <SectionHeader

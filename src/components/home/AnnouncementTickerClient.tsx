@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+
 interface TickerNotice {
   id: string;
   title: string;
@@ -19,7 +20,7 @@ export default function AnnouncementTickerClient({
   if (activeNotices.length === 0) return null;
 
   return (
-    <div className="announcement-ticker" aria-label="Announcements">
+    <div data-component="AnnouncementTickerClient" className="announcement-ticker" aria-label="Announcements">
       <div className="flex items-center">
         {/* Label */}
         <div className="shrink-0 bg-accent px-4 py-2 flex items-center gap-1.5 z-10">

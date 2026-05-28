@@ -38,6 +38,7 @@ const navItems = [
 
 import { X } from "lucide-react";
 
+
 type AdminSidebarProps = {
   collapsed: boolean;
   setCollapsed: (val: boolean) => void;
@@ -58,7 +59,7 @@ export default function AdminSidebar({
     <>
       {/* Mobile Overlay */}
       {mobileOpen && (
-        <div 
+        <div data-component="AdminSidebar" 
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />

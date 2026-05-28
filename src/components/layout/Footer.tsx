@@ -7,6 +7,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import {
+
   SITE_NAME,
   COLLEGE_NAME,
   NAAC_GRADE,
@@ -40,7 +41,7 @@ const academicLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white mt-auto">
+    <footer data-component="Footer" className="bg-primary text-white mt-auto">
       {/* Gold accent line */}
       <div className="h-1 bg-accent" />
 

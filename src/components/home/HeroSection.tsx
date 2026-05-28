@@ -5,9 +5,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SITE_NAME, COLLEGE_NAME, NAAC_GRADE } from "@/lib/constants";
 
+
 export default function HeroSection() {
   return (
-    <section className="relative bg-primary overflow-hidden" id="hero">
+    <section data-component="HeroSection" className="relative bg-primary overflow-hidden" id="hero">
       {/* Background Image */}
       <div className="absolute inset-0 opacity-20 mix-blend-overlay">
         <Image

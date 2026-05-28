@@ -4,6 +4,7 @@ import CourseCard from "@/components/courses/CourseCard";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default async function CoursesPage() {
         subtitle="Comprehensive curricula designed to build strong foundations and advanced expertise in biological sciences"
       />
 
-      <div className="section-container section-padding space-y-16">
+      <div data-component="Courses_page" className="section-container section-padding space-y-16">
         {/* Undergraduate */}
         {ugCourses.length > 0 && (
           <section>

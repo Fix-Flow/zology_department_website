@@ -6,6 +6,7 @@ import { deleteGalleryImage } from "@/actions/admin/gallery";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+
 export default function DeleteGalleryImageButton({
   id,
 }: {
@@ -27,7 +28,7 @@ export default function DeleteGalleryImageButton({
 
   if (confirming) {
     return (
-      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg flex items-center gap-1 shadow-sm">
+      <div data-component="DeleteGalleryImageButton" className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-lg flex items-center gap-1 shadow-sm">
         <button
           onClick={handleDelete}
           className="px-2 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700 transition-colors"

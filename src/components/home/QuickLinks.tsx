@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 
+
 const quickLinks = [
   {
     label: "Syllabus",
@@ -56,7 +57,7 @@ const quickLinks = [
 
 export default function QuickLinks() {
   return (
-    <section className="section-padding bg-neutral-bg">
+    <section data-component="QuickLinks" className="section-padding bg-neutral-bg">
       <div className="section-container">
         <SectionHeader
           title="Quick Links"

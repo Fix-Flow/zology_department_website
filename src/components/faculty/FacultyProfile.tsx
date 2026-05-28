@@ -12,13 +12,14 @@ import {
 import { Faculty } from "@/types/faculty";
 import { getInitials } from "@/lib/utils";
 
+
 interface FacultyProfileProps {
   faculty: Faculty;
 }
 
 export default function FacultyProfile({ faculty }: FacultyProfileProps) {
   return (
-    <div className="section-container section-padding">
+    <div data-component="FacultyProfile" className="section-container section-padding">
       {/* Back link */}
       <Link
         href="/faculty"

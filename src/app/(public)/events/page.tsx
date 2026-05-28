@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 import type { Event } from "@/types/event";
 
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -53,7 +54,7 @@ export default async function EventsPage() {
         subtitle="Discover our seminars, workshops, extension activities, and field visits."
       />
 
-      <div className="section-container section-padding">
+      <div data-component="Events_page" className="section-container section-padding">
         {sortedEvents.length === 0 ? (
           <p className="text-center text-govt-muted py-12">
             No events have been posted yet. Check back soon!

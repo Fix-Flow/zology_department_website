@@ -2,9 +2,10 @@ import Link from "next/link";
 import { ArrowRight, Clock, Users, GraduationCap } from "lucide-react";
 import { Course } from "@/types/course";
 
+
 export default function CourseCard({ course }: { course: Course }) {
   return (
-    <div className="card group flex flex-col h-full">
+    <div data-component="CourseCard" className="card group flex flex-col h-full">
       <div className="p-6 flex-1 flex flex-col">
         {/* Level Badge */}
         <div className="mb-4">

@@ -3,6 +3,7 @@ import { Bell, FileText, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
 
+
 const categoryColors: Record<string, string> = {
   CIRCULAR: "text-blue-600",
   EXAM: "text-red-600",
@@ -20,7 +21,7 @@ export default async function NewsNotices() {
   });
 
   return (
-    <section className="section-padding bg-neutral-bg">
+    <section data-component="NewsNotices" className="section-padding bg-neutral-bg">
       <div className="section-container">
         <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
           {/* Left: Latest News / Highlights */}

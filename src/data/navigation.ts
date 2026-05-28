@@ -11,11 +11,11 @@ export const navigation: NavItem[] = [
     href: "/about",
     children: [
       { label: "Department Profile", href: "/about" },
-      { label: "Vision & Mission", href: "/about#vision-mission" },
-      { label: "HoD Message", href: "/about#hod-message" },
-      { label: "History of Department", href: "/about#history" },
-      { label: "Infrastructure", href: "/about#facilities" },
-      { label: "Achievements", href: "/about#achievements" },
+      { label: "Vision & Mission", href: "/about/vision" },
+      { label: "HoD Message", href: "/about/hod" },
+      { label: "Objectives", href: "/about/objectives" },
+      { label: "Infrastructure", href: "/facilities" },
+      { label: "Achievements", href: "/about/achievements" },
     ],
   },
   {

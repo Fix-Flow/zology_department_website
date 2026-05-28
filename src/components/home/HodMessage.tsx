@@ -1,9 +1,10 @@
 import { Quote } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 
+
 export default function HodMessage() {
   return (
-    <section className="section-padding bg-white">
+    <section data-component="HodMessage" className="section-padding bg-white">
       <div className="section-container">
         <SectionHeader
           title="From the Head of Department"

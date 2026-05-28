@@ -7,6 +7,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Download as PrismaDownload } from "@prisma/client";
 import {
+
   createDownload,
   updateDownload,
   type DownloadFormState,
@@ -55,7 +56,7 @@ export default function DownloadForm({ download }: DownloadFormProps) {
   }, [state, router]);
 
   return (
-    <div className="max-w-3xl">
+    <div data-component="DownloadForm" className="max-w-3xl">
       <div className="mb-8">
         <Link
           href="/admin/downloads"

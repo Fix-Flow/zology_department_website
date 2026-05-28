@@ -8,6 +8,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Notice as PrismaNotice } from "@prisma/client";
 import {
+
   createNotice,
   updateNotice,
   type NoticeFormState,
@@ -55,7 +56,7 @@ export default function NoticeForm({ notice }: NoticeFormProps) {
   }, [state, router]);
 
   return (
-    <div className="max-w-2xl">
+    <div data-component="NoticeForm" className="max-w-2xl">
       {/* Header */}
       <div className="mb-8">
         <Link

@@ -3,6 +3,7 @@ import { Mail, BookOpen, ArrowRight } from "lucide-react";
 import { Faculty } from "@/types/faculty";
 import { getInitials } from "@/lib/utils";
 
+
 interface FacultyCardProps {
   faculty: Faculty;
 }
@@ -14,7 +15,7 @@ export default function FacultyCard({ faculty }: FacultyCardProps) {
       className="card group overflow-hidden"
     >
       {/* Photo */}
-      <div className="h-52 bg-neutral-bg relative overflow-hidden">
+      <div data-component="FacultyCard" className="h-52 bg-neutral-bg relative overflow-hidden">
         {/* Placeholder with initials */}
         <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
           <span className="text-4xl font-heading font-bold text-primary/20">

@@ -479,11 +479,12 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     white-space: nowrap;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
   }
 
   .tab-item:hover {
     color: var(--primary);
-    background-color: #f8f9fc;
+    background-color: rgba(26, 58, 107, 0.05); /* primary/5 */
   }
 
   .tab-item.active {

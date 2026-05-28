@@ -7,6 +7,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Publication as PrismaPublication } from "@prisma/client";
 import {
+
   createPublication,
   updatePublication,
   type PublicationFormState,
@@ -52,7 +53,7 @@ export default function PublicationForm({ publication }: PublicationFormProps) {
   }, [state, router]);
 
   return (
-    <div className="max-w-4xl">
+    <div data-component="PublicationForm" className="max-w-4xl">
       <div className="mb-8">
         <Link
           href="/admin/publications"

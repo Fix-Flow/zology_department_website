@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Lock, Mail, AlertCircle, GraduationCap } from "lucide-react";
 import { SITE_NAME, COLLEGE_SHORT } from "@/lib/constants";
 
+
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-bg px-4">
+    <div data-component="Login_page" className="min-h-screen flex items-center justify-center bg-neutral-bg px-4">
       {/* Background pattern */}
       <div
         className="fixed inset-0 opacity-[0.03]"

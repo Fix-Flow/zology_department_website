@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 
+
 /**
  * Maps route segments to readable labels.
  */
@@ -48,7 +49,7 @@ export default function Breadcrumb() {
   });
 
   return (
-    <nav
+    <nav data-component="Breadcrumb"
       aria-label="Breadcrumb"
       className="bg-white border-b border-govt-border"
     >

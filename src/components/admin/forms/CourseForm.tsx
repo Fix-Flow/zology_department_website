@@ -7,6 +7,7 @@ import { ArrowLeft, Save } from "lucide-react";
 import toast from "react-hot-toast";
 import type { Course as PrismaCourse } from "@prisma/client";
 import {
+
   createCourse,
   updateCourse,
   type CourseFormState,
@@ -67,7 +68,7 @@ export default function CourseForm({ course }: CourseFormProps) {
   }, [title, slugEdited]);
 
   return (
-    <div className="max-w-4xl">
+    <div data-component="CourseForm" className="max-w-4xl">
       <div className="mb-8">
         <Link
           href="/admin/courses"

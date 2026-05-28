@@ -1,6 +1,7 @@
 import { Faculty } from "@/types/faculty";
 import FacultyCard from "./FacultyCard";
 
+
 interface FacultyGridProps {
   facultyList: Faculty[];
 }
@@ -8,7 +9,7 @@ interface FacultyGridProps {
 export default function FacultyGrid({ facultyList }: FacultyGridProps) {
   if (facultyList.length === 0) {
     return (
-      <div className="text-center py-12 text-govt-muted">
+      <div data-component="FacultyGrid" className="text-center py-12 text-govt-muted">
         <p className="text-lg">No faculty members found in this category.</p>
       </div>
     );

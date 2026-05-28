@@ -3,6 +3,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { BookOpen, Trophy, GraduationCap, Download, Users, Lightbulb } from "lucide-react";
 import type { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "Student Corner",
   description: "Resources, clubs, achievements, and academic materials for students of the Zoology Department.",
@@ -117,7 +118,7 @@ export default function StudentCornerPage() {
 
 // Quick mock of icons not imported from lucide-react above
 function FileText({ size, className }: { size?: number; className?: string }) {
-  return <svg xmlns="http://www.w3.org/2000/svg" width={size || 24} height={size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>;
+  return <svg data-component="Student-corner_page" xmlns="http://www.w3.org/2000/svg" width={size || 24} height={size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>;
 }
 
 function Leaf({ size, className }: { size?: number; className?: string }) {

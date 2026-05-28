@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
+
 export const dynamic = "force-dynamic";
 
 async function getDashboardStats() {
@@ -136,7 +137,7 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div data-component="Admin_page" className="space-y-8">
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>

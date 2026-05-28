@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+
 export default function Error({
   error,
   reset,
@@ -15,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 p-8 text-center bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 m-4">
+    <div data-component="error" className="flex flex-col items-center justify-center min-h-[400px] gap-4 p-8 text-center bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 m-4">
       <h2 className="text-2xl font-bold tracking-tight text-red-600">
         Admin Area Error
       </h2>

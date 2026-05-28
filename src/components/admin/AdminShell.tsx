@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminTopbar from "@/components/admin/AdminTopbar";
 
+
 type AdminShellProps = {
   children: React.ReactNode;
 };
@@ -25,7 +26,7 @@ export default function AdminShell({ children }: AdminShellProps) {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div data-component="AdminShell" className="flex min-h-screen bg-slate-100">
       <AdminSidebar
         collapsed={collapsed}
         setCollapsed={setCollapsed}

@@ -21,6 +21,7 @@ const initialState: UserFormState = {
 
 import type { Role } from "@prisma/client";
 
+
 type UserFormProps = {
   user?: { id: string; name: string; email: string; role: Role };
 };
@@ -43,7 +44,7 @@ export default function UserForm({ user }: UserFormProps) {
   }, [state, router]);
 
   return (
-    <div className="max-w-3xl">
+    <div data-component="UserForm" className="max-w-3xl">
       <div className="mb-8">
         <Link
           href="/admin/users"

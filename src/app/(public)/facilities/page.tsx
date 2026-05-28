@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import { Microscope, Beaker, BookOpen, Monitor, Fish, ThermometerSun, Leaf, Lightbulb } from "lucide-react";
 import type { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "Infrastructure & Facilities",
   description:
@@ -68,7 +69,7 @@ export default function FacilitiesPage() {
         subtitle="State-of-the-art laboratories and innovative hubs fostering practical learning and research"
       />
 
-      <div className="section-container section-padding">
+      <div data-component="Facilities_page" className="section-container section-padding">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-heading text-3xl text-govt-text font-bold mb-4">A Hub of Scientific Inquiry</h2>
           <p className="text-govt-muted leading-relaxed">

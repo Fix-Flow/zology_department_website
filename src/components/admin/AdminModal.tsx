@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 
+
 interface AdminModalProps {
   children: React.ReactNode;
   returnTo: string;
@@ -37,7 +38,7 @@ export default function AdminModal({ children, returnTo }: AdminModalProps) {
   if (!mounted) return null;
 
   return createPortal(
-    <div 
+    <div data-component="AdminModal" 
       ref={overlayRef}
       onClick={onOverlayClick}
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto"

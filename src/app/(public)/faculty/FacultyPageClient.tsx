@@ -3,6 +3,7 @@
 import { useState } from "react";
 import FacultyGrid from "@/components/faculty/FacultyGrid";
 
+
 interface FacultyMember {
   id: string;
   slug: string;
@@ -63,7 +64,7 @@ export default function FacultyPageClient({
   }));
 
   return (
-    <div className="section-container section-padding">
+    <div data-component="FacultyPageClient" className="section-container section-padding">
       {/* Category Tabs */}
       <div className="tab-group mb-8">
         {categories.map((cat) => (

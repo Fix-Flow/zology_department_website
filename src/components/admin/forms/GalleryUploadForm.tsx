@@ -10,6 +10,7 @@ import { createGalleryImage } from "@/actions/admin/gallery";
 import { uploadImageAction } from "@/actions/admin/upload";
 import type { GalleryCategory } from "@prisma/client";
 
+
 function fileToDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -80,7 +81,7 @@ export default function GalleryUploadForm() {
   }
 
   return (
-    <div className="max-w-2xl">
+    <div data-component="GalleryUploadForm" className="max-w-2xl">
       <div className="mb-8">
         <Link
           href="/admin/gallery"

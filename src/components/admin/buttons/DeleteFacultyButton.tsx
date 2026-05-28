@@ -6,6 +6,7 @@ import { deleteFaculty } from "@/actions/admin/faculty";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+
 export default function DeleteFacultyButton({
   id,
   name,
@@ -29,7 +30,7 @@ export default function DeleteFacultyButton({
 
   if (confirming) {
     return (
-      <div className="flex items-center gap-1">
+      <div data-component="DeleteFacultyButton" className="flex items-center gap-1">
         <button
           onClick={handleDelete}
           className="px-2 py-1 bg-red-600 text-white text-xs rounded-md hover:bg-red-700 transition-colors"

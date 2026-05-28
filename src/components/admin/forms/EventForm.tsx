@@ -13,6 +13,7 @@ import {
 } from "@/actions/admin/events";
 import { uploadImageAction } from "@/actions/admin/upload";
 
+
 function fileToDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -106,7 +107,7 @@ export default function EventForm({ event }: EventFormProps) {
   }
 
   return (
-    <div className="max-w-3xl">
+    <div data-component="EventForm" className="max-w-3xl">
       {/* Header */}
       <div className="mb-8">
         <Link

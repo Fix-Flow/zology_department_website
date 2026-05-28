@@ -3,6 +3,7 @@ import { ArrowRight, ImageIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import SectionHeader from "@/components/ui/SectionHeader";
 
+
 export default async function GalleryPreview() {
   const previewImages = await prisma.galleryImage.findMany({
     where: { isActive: true },
@@ -13,7 +14,7 @@ export default async function GalleryPreview() {
   if (previewImages.length === 0) return null;
 
   return (
-    <section className="section-padding bg-white">
+    <section data-component="GalleryPreview" className="section-padding bg-white">
       <div className="section-container">
         <div className="flex items-end justify-between mb-8">
           <SectionHeader

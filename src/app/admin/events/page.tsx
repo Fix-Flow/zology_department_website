@@ -5,6 +5,7 @@ import { Plus, Calendar, Pencil, Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import DeleteEventButton from "@/components/admin/buttons/DeleteEventButton";
 
+
 export const dynamic = "force-dynamic";
 
 type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
@@ -22,7 +23,7 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
   });
 
   return (
-    <div className="space-y-6 w-full max-w-full">
+    <div data-component="Events_page" className="space-y-6 w-full max-w-full">
       {/* Header */}
       <div className="mb-6">
         <h1 className="font-heading text-2xl font-bold text-govt-text">

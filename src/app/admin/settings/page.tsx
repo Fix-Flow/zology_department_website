@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import SettingsForm from "@/components/admin/forms/SettingsForm";
 
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminSettingsPage() {
@@ -13,7 +14,7 @@ export default async function AdminSettingsPage() {
   }, {} as Record<string, string>);
 
   return (
-    <div className="space-y-6 w-full max-w-full">
+    <div data-component="Settings_page" className="space-y-6 w-full max-w-full">
       <div>
         <h1 className="font-heading text-2xl font-bold text-govt-text">
           Site Settings

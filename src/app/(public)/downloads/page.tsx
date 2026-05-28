@@ -3,6 +3,7 @@ import { Download, FileText } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
 
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -51,7 +52,7 @@ export default async function DownloadsPage() {
         subtitle="Access official syllabi, previous question papers, and essential forms"
       />
 
-      <div className="section-container section-padding">
+      <div data-component="Downloads_page" className="section-container section-padding">
         {categories.length === 0 ? (
           <p className="text-center text-govt-muted py-12">
             No downloads available yet. Check back soon!

@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { LogOut, User, Shield, Menu } from "lucide-react";
 import { useState } from "react";
 
+
 const roleLabels: Record<string, string> = {
   SUPER_ADMIN: "Super Admin",
   FACULTY_MANAGER: "Faculty Manager",
@@ -29,7 +30,7 @@ export default function AdminTopbar({ setMobileOpen }: AdminTopbarProps) {
   const role = session?.user?.role || "CONTENT_EDITOR";
 
   return (
-    <header className="h-16 bg-white border-b border-govt-border flex items-center justify-between px-4 sm:px-6 shrink-0 sticky top-0 z-30">
+    <header data-component="AdminTopbar" className="h-16 bg-white border-b border-govt-border flex items-center justify-between px-4 sm:px-6 shrink-0 sticky top-0 z-30">
       <div className="flex items-center gap-3">
         <button
           onClick={() => setMobileOpen(true)}
