@@ -36,6 +36,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      { source: "/downloads/syllabus", destination: "/downloads", permanent: false },
+      { source: "/downloads/timetables", destination: "/downloads", permanent: false },
+      { source: "/downloads/calendar", destination: "/downloads", permanent: false },
+      { source: "/courses/programme-outcomes", destination: "/courses", permanent: false },
+      { source: "/courses/course-outcomes", destination: "/courses", permanent: false },
+      { source: "/faculty/staff", destination: "/faculty", permanent: false },
+      { source: "/facilities/museum", destination: "/facilities", permanent: false },
+      { source: "/facilities/vermicomposting", destination: "/facilities", permanent: false },
+      { source: "/facilities/aquaculture", destination: "/facilities", permanent: false },
+    ];
+  },
   images: {
     remotePatterns: [
       {

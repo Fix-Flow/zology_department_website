@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, BookOpen, ArrowRight } from "lucide-react";
+import { Mail, BookOpen, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Faculty } from "@/types/faculty";
 import { getInitials } from "@/lib/utils";
 
@@ -15,16 +15,26 @@ export default function FacultyCard({ faculty }: FacultyCardProps) {
       className="card group overflow-hidden"
     >
       {/* Photo */}
-      <div data-component="FacultyCard" className="h-52 bg-neutral-bg relative overflow-hidden">
-        {/* Placeholder with initials */}
-        <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
-          <span className="text-4xl font-heading font-bold text-primary/20">
-            {getInitials(faculty.name)}
-          </span>
-        </div>
+      <div data-component="FacultyCard" className="h-64 bg-neutral-bg relative overflow-hidden">
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition-colors duration-300 z-10 pointer-events-none" />
+        {faculty.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={faculty.photo}
+            alt={faculty.name}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
+            <span className="text-4xl font-heading font-bold text-primary/20">
+              {getInitials(faculty.name)}
+            </span>
+          </div>
+        )}
 
         {/* Category badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-20">
           <span className="badge-category capitalize text-[10px]">
             {faculty.category.replace("-", " ")}
           </span>
@@ -32,47 +42,19 @@ export default function FacultyCard({ faculty }: FacultyCardProps) {
       </div>
 
       {/* Info */}
-      <div className="p-4">
-        <h3 className="font-body font-semibold text-card-title text-govt-text group-hover:text-primary transition-colors leading-snug">
-          {faculty.name}
-        </h3>
-        <p className="text-sm text-accent font-medium mt-0.5">
-          {faculty.designation}
-        </p>
-
-        {/* Qualifications */}
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
-          {faculty.qualification.slice(0, 3).map((q) => (
-            <span
-              key={q}
-              className="inline-block px-2 py-0.5 bg-neutral-bg text-govt-muted text-[11px] font-medium rounded-md"
-            >
-              {q}
-            </span>
-          ))}
+      <div className="px-4 py-3 flex items-center justify-between gap-2">
+        <div>
+          <h3 className="font-body font-semibold text-base text-govt-text group-hover:text-primary transition-colors leading-snug">
+            {faculty.name}
+          </h3>
+          <p className="text-xs text-accent font-medium mt-0.5">
+            {faculty.designation}
+          </p>
         </div>
-
-        {/* Bottom row */}
-        <div className="mt-3 pt-3 border-t border-govt-border flex items-center justify-between">
-          <div className="flex items-center gap-3 text-xs text-govt-muted">
-            {faculty.email && (
-              <span className="flex items-center gap-1">
-                <Mail size={12} />
-                <span className="hidden sm:inline truncate max-w-[120px]">
-                  {faculty.email.split("@")[0]}
-                </span>
-              </span>
-            )}
-            {faculty.publications > 0 && (
-              <span className="flex items-center gap-1">
-                <BookOpen size={12} />
-                {faculty.publications}
-              </span>
-            )}
-          </div>
-          <span className="text-xs font-semibold text-primary group-hover:text-primary-dark flex items-center gap-0.5">
-            Profile <ArrowRight size={12} />
-          </span>
+        
+        {/* Profile Arrow */}
+        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0">
+          <ArrowRight size={18} className="group-hover:-rotate-45 transition-transform duration-300" />
         </div>
       </div>
     </Link>

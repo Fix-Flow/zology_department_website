@@ -10,6 +10,7 @@ const downloadSchema = z.object({
   fileUrl: z.string().url("Must be a valid URL").max(2000),
   fileSize: z.string().max(50).optional(),
   category: z.string().min(2, "Category is required").max(100),
+  isFeatured: z.boolean().optional(),
 });
 
 export type DownloadFormState = {
@@ -33,6 +34,7 @@ export async function createDownload(
     fileUrl: formData.get("fileUrl"),
     fileSize: formData.get("fileSize") || undefined,
     category: formData.get("category"),
+    isFeatured: formData.get("isFeatured") === "on",
   });
 
   if (!parsed.success) {
@@ -71,9 +73,10 @@ export async function updateDownload(
 
   const parsed = downloadSchema.safeParse({
     title: formData.get("title"),
-    description: formData.get("description") || undefined,
     fileUrl: formData.get("fileUrl"),
+    fileSize: formData.get("fileSize") || undefined,
     category: formData.get("category"),
+    isFeatured: formData.get("isFeatured") === "on",
   });
 
   if (!parsed.success) {
@@ -85,9 +88,16 @@ export async function updateDownload(
   }
 
   try {
-    await prisma.download.update({
+    const updatedDownload = await prisma.download.update({
       where: { id },
       data: parsed.data,
+    });
+
+    // Log the edit in history
+    await prisma.downloadHistory.create({
+      data: {
+        downloadId: updatedDownload.id,
+      },
     });
 
     revalidatePath("/");

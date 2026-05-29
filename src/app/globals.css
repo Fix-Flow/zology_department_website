@@ -465,6 +465,12 @@
     border-bottom: 2px solid var(--border);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  .tab-group::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 
   .tab-item {

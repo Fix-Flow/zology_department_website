@@ -4,7 +4,7 @@ import { Home, Search } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div data-component="not-found" className="section-container flex flex-col items-center justify-center py-20 text-center min-h-[60vh]">
+    <div data-component="not-found" className="section-container flex flex-col items-center justify-center py-20 text-center min-h-[80vh]">
       {/* 404 Number */}
       <div className="relative mb-6">
         <span className="text-[120px] sm:text-[160px] font-heading font-bold text-primary/5 leading-none select-none">

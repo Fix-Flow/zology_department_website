@@ -19,6 +19,11 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
     }
   const downloads = await prisma.download.findMany({
     where: { isActive: true },
+    include: {
+      history: {
+        orderBy: { editedAt: "desc" },
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
 
@@ -33,30 +38,33 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
           </p>
       </div>
 
-      <div className="bg-white rounded-xl border border-govt-border overflow-hidden w-full max-w-full">
-        <div className="w-full max-w-full overflow-x-auto table-scrollbar pb-2">
-          <table className="w-full min-w-[800px] text-sm whitespace-nowrap">
+      <div className="bg-white rounded-xl border border-govt-border w-full max-w-full">
+        <div className="w-full max-w-full overflow-x-auto xl:overflow-visible table-scrollbar pb-2">
+          <table className="w-full min-w-[800px] text-sm whitespace-nowrap border-separate border-spacing-0">
             <thead>
-              <tr className="bg-neutral-bg border-b border-govt-border">
-                <th className="text-left px-5 py-3 font-semibold text-govt-text">
+              <tr>
+                <th className="bg-neutral-bg border-b border-govt-border text-left px-5 py-3 font-semibold text-govt-text rounded-tl-xl">
                   Title & Size
                 </th>
-                <th className="text-left px-5 py-3 font-semibold text-govt-text">
+                <th className="bg-neutral-bg border-b border-govt-border text-left px-5 py-3 font-semibold text-govt-text">
                   Category
                 </th>
-                <th className="text-left px-5 py-3 font-semibold text-govt-text">
+                <th className="bg-neutral-bg border-b border-govt-border text-left px-5 py-3 font-semibold text-govt-text">
                   Date Added
                 </th>
-                <th className="text-right px-5 py-3 font-semibold text-govt-text">
+                <th className="bg-neutral-bg border-b border-govt-border text-left px-5 py-3 font-semibold text-govt-text">
+                  Last Edited
+                </th>
+                <th className="bg-neutral-bg border-b border-govt-border text-right px-5 py-3 font-semibold text-govt-text rounded-tr-xl">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-govt-border">
+            <tbody className="[&>tr>td]:border-b [&>tr>td]:border-govt-border [&>tr:last-child>td]:border-b-0 [&>tr:last-child>td:first-child]:rounded-bl-xl [&>tr:last-child>td:last-child]:rounded-br-xl">
               {downloads.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={4}
+                    colSpan={5}
                     className="px-5 py-12 text-center text-govt-muted"
                   >
                     <DownloadIcon
@@ -80,9 +88,16 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
                   >
                     <td className="px-5 py-3 max-w-[400px]">
                       <div className="flex flex-col">
-                        <span className="font-medium text-govt-text line-clamp-1">
-                          {item.title}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-govt-text line-clamp-1">
+                            {item.title}
+                          </span>
+                          {item.isFeatured && (
+                            <span className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">
+                              ★ Featured
+                            </span>
+                          )}
+                        </div>
                         {item.fileSize && (
                           <span className="text-xs text-govt-muted mt-1 line-clamp-1">
                             {item.fileSize}
@@ -97,6 +112,35 @@ type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> 
                     </td>
                     <td className="px-5 py-3 text-govt-text">
                       {new Date(item.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-5 py-3 text-govt-text">
+                      {item.history && item.history.length > 0 ? (
+                        <div className="flex items-center gap-3">
+                          <span>{new Date(item.updatedAt).toLocaleDateString()}</span>
+                          <div className="relative group">
+                            <button type="button" className="text-[11px] font-medium bg-neutral-bg border border-govt-border rounded-full px-2.5 py-1 outline-none group-hover:border-primary group-hover:text-primary transition-colors text-govt-muted whitespace-nowrap flex items-center gap-1">
+                              History <span className="bg-govt-border/50 text-govt-text rounded-full px-1.5 py-0.5 text-[9px]">{item.history.length}</span>
+                            </button>
+                            <div className="absolute right-0 top-full mt-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-white border border-govt-border rounded-xl shadow-xl py-2 z-[60] w-max max-h-48 overflow-y-auto min-w-[160px]">
+                              <div className="px-3 pb-1 mb-1 border-b border-govt-border text-right">
+                                <span className="text-[10px] font-bold text-govt-muted uppercase tracking-wider">Edit History</span>
+                              </div>
+                              <ul className="text-xs flex flex-col text-right">
+                                {item.history.map((hist) => (
+                                  <li key={hist.id} className="text-govt-text whitespace-nowrap px-3 py-1.5 hover:bg-neutral-bg">
+                                    {new Date(hist.editedAt).toLocaleString(undefined, {
+                                      dateStyle: 'medium',
+                                      timeStyle: 'short'
+                                    })}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-govt-muted italic text-sm">Never</span>
+                      )}
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-2">

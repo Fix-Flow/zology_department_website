@@ -140,6 +140,28 @@ export default function DownloadForm({ download }: DownloadFormProps) {
             </div>
           </div>
 
+          <div className="pt-2">
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <div className="flex items-center h-5 mt-0.5">
+                <input
+                  type="checkbox"
+                  id="isFeatured"
+                  name="isFeatured"
+                  defaultChecked={download?.isFeatured || false}
+                  className="w-4 h-4 rounded border-govt-border text-primary focus:ring-primary/20 transition-colors cursor-pointer"
+                />
+              </div>
+              <div>
+                <span className="block text-sm font-medium text-govt-text group-hover:text-primary transition-colors">
+                  Feature in Student Corner
+                </span>
+                <span className="block text-xs text-govt-muted mt-0.5">
+                  Checking this box will display this resource prominently on the public Student Corner page.
+                </span>
+              </div>
+            </label>
+          </div>
+
         </div>
 
         {/* Submit */}

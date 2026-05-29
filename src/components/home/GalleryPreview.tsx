@@ -41,10 +41,10 @@ export default async function GalleryPreview() {
               <Link
                 key={image.id}
                 href="/gallery"
-                className={`relative group overflow-hidden rounded-lg bg-neutral-bg ${
+                className={`relative group overflow-hidden rounded-xl bg-neutral-bg ${
                   isLarge ? "row-span-2" : ""
                 }`}
-                style={{ minHeight: isLarge ? "300px" : "150px" }}
+                style={{ minHeight: isLarge ? "480px" : "240px" }}
               >
                 {/* Show real image if available, otherwise placeholder */}
                 {image.src ? (
@@ -61,15 +61,13 @@ export default async function GalleryPreview() {
                 )}
 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-300 flex items-end">
-                  <div className="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-white text-xs sm:text-sm font-medium line-clamp-2">
-                      {image.alt}
-                    </p>
-                    <span className="text-white/60 text-[10px] uppercase tracking-wider mt-1 inline-block">
-                      {image.category.replace("_", " ").toLowerCase()}
-                    </span>
-                  </div>
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end">
+                  <span className="inline-block self-start px-2 py-0.5 bg-primary text-white text-[10px] font-medium rounded capitalize mb-1.5 shadow-sm">
+                    {image.category.replace("_", " ").toLowerCase()}
+                  </span>
+                  <p className="text-white/90 text-xs sm:text-sm font-medium line-clamp-3 drop-shadow-md">
+                    {image.alt}
+                  </p>
                 </div>
               </Link>
             );

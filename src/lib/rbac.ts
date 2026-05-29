@@ -12,6 +12,7 @@ export const ROLE_PERMISSIONS = {
     "/admin/publications",
     "/admin/downloads",
     "/admin/notices",
+    "/admin/student-corner",
   ],
 };
 

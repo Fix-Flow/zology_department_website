@@ -76,3 +76,39 @@ export async function deleteGalleryImage(id: string): Promise<GalleryFormState> 
     return { success: false, message: "Failed to delete image" };
   }
 }
+
+export async function updateGalleryImage(
+  id: string,
+  category: GalleryCategory,
+  alt: string,
+  year: number
+): Promise<GalleryFormState> {
+  const session = await auth();
+  const allowedRoles = ["SUPER_ADMIN", "EVENT_MANAGER"];
+  if (!session?.user || !allowedRoles.includes(session.user.role)) {
+    return { success: false, message: "Unauthorized" };
+  }
+
+  const parsed = gallerySchema.omit({ src: true }).safeParse({ category, alt, year });
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Validation failed",
+      errors: parsed.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    await prisma.galleryImage.update({
+      where: { id },
+      data: parsed.data,
+    });
+
+    revalidatePath("/");
+    revalidatePath("/admin/gallery");
+    return { success: true, message: "Image updated successfully" };
+  } catch (error) {
+    console.error("[updateGalleryImage]", error);
+    return { success: false, message: "Failed to update image" };
+  }
+}

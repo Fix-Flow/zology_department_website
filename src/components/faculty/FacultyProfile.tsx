@@ -33,12 +33,20 @@ export default function FacultyProfile({ faculty }: FacultyProfileProps) {
         {/* Left: Photo & Basic Info */}
         <div>
           <div className="card-static overflow-hidden">
-            {/* Photo placeholder */}
-            <div className="h-72 bg-neutral-bg flex items-center justify-center">
-              <span className="text-6xl font-heading font-bold text-primary/20">
-                {getInitials(faculty.name)}
-              </span>
-            </div>
+            {faculty.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={faculty.photo}
+                alt={faculty.name}
+                className="w-full h-72 object-cover object-top bg-neutral-bg"
+              />
+            ) : (
+              <div className="h-72 bg-neutral-bg flex items-center justify-center">
+                <span className="text-6xl font-heading font-bold text-primary/20">
+                  {getInitials(faculty.name)}
+                </span>
+              </div>
+            )}
 
             <div className="p-5 text-center">
               <h1 className="font-heading font-bold text-xl text-govt-text">

@@ -204,11 +204,22 @@ model Download {
   category  String
   fileUrl   String
   fileSize  String?
+  isFeatured Boolean @default(false)
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  history   DownloadHistory[]
 
   @@map("downloads")
+}
+
+model DownloadHistory {
+  id         String   @id @default(cuid())
+  downloadId String
+  download   Download @relation(fields: [downloadId], references: [id], onDelete: Cascade)
+  editedAt   DateTime @default(now())
+
+  @@map("download_history")
 }
 
 // ─── Site Settings ───
@@ -219,4 +230,32 @@ model SiteSetting {
   value String @db.Text
 
   @@map("site_settings")
+}
+
+// ─── Student Corner ───
+
+model StudentClub {
+  id           String   @id @default(cuid())
+  name         String
+  description  String   @db.Text
+  icon         String   @default("Lightbulb") // lucide icon name
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("student_clubs")
+}
+
+model StudentAchievement {
+  id           String   @id @default(cuid())
+  studentName  String
+  achievement  String   @db.Text
+  year         Int?
+  icon         String   @default("Trophy") // lucide icon name
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("student_achievements")
 }

@@ -6,9 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Save, Upload, X } from "lucide-react";
 import toast from "react-hot-toast";
-import { createGalleryImage } from "@/actions/admin/gallery";
+import { createGalleryImage, updateGalleryImage } from "@/actions/admin/gallery";
 import { uploadImageAction } from "@/actions/admin/upload";
-import type { GalleryCategory } from "@prisma/client";
+import type { GalleryCategory, GalleryImage } from "@prisma/client";
 
 
 function fileToDataUri(file: File): Promise<string> {
@@ -28,15 +28,15 @@ const categories = [
   { value: "CAMPUS", label: "Campus & Infrastructure" },
 ];
 
-export default function GalleryUploadForm() {
+export default function GalleryUploadForm({ initialData }: { initialData?: GalleryImage }) {
   const router = useRouter();
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(initialData?.src || "");
   const [isUploading, setIsUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [alt, setAlt] = useState("");
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [category, setCategory] = useState<GalleryCategory>("EVENT");
+  const [alt, setAlt] = useState(initialData?.alt || "");
+  const [year, setYear] = useState(initialData?.year || new Date().getFullYear());
+  const [category, setCategory] = useState<GalleryCategory>(initialData?.category || "EVENT");
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -68,7 +68,14 @@ export default function GalleryUploadForm() {
     }
 
     setIsSaving(true);
-    const result = await createGalleryImage(imageUrl, category, alt, year);
+    
+    let result;
+    if (initialData) {
+      result = await updateGalleryImage(initialData.id, category, alt, year);
+    } else {
+      result = await createGalleryImage(imageUrl, category, alt, year);
+    }
+    
     setIsSaving(false);
 
     if (result.success) {
@@ -91,7 +98,7 @@ export default function GalleryUploadForm() {
           Back to Gallery
         </Link>
         <h1 className="font-heading text-2xl font-bold text-govt-text">
-          Upload New Image
+          {initialData ? "Edit Image Details" : "Upload New Image"}
         </h1>
       </div>
 
@@ -101,7 +108,7 @@ export default function GalleryUploadForm() {
           {/* Image Upload Area */}
           <div>
             <label className="block text-sm font-medium text-govt-text mb-1.5">
-              Image File <span className="text-red-500">*</span>
+              Image File {!initialData && <span className="text-red-500">*</span>}
             </label>
             
             {imageUrl ? (
@@ -112,16 +119,18 @@ export default function GalleryUploadForm() {
                   fill
                   className="object-contain"
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setImageUrl("")}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium text-sm"
-                  >
-                    <X size={16} />
-                    Remove Image
-                  </button>
-                </div>
+                {!initialData && (
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setImageUrl("")}
+                      className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium text-sm"
+                    >
+                      <X size={16} />
+                      Remove Image
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="w-full aspect-video rounded-xl border-2 border-dashed border-govt-border flex flex-col items-center justify-center bg-neutral-bg hover:bg-neutral-bg/70 transition-colors">
@@ -222,7 +231,7 @@ export default function GalleryUploadForm() {
             ) : (
               <>
                 <Save size={16} />
-                Save to Gallery
+                {initialData ? "Save Changes" : "Save to Gallery"}
               </>
             )}
           </button>

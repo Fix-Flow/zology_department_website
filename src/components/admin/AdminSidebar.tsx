@@ -33,6 +33,7 @@ const navItems = [
   { label: "Gallery", href: "/admin/gallery", icon: ImageIcon },
   { label: "Downloads", href: "/admin/downloads", icon: Download },
   { label: "Settings", href: "/admin/settings", icon: Settings },
+  { label: "Student Corner", href: "/admin/student-corner", icon: GraduationCap },
   { label: "Users", href: "/admin/users", icon: UserCog },
 ];
 

@@ -104,11 +104,18 @@ export default function SettingsForm({ settings }: { settings: Record<string, st
                   />
                   <label
                     htmlFor="hodPhotoUpload"
-                    className={`inline-flex items-center gap-2 px-4 py-2 border border-govt-border rounded-lg text-sm font-medium cursor-pointer hover:bg-neutral-bg transition-colors ${
-                      isUploading ? "opacity-50 pointer-events-none" : ""
+                    className={`inline-flex items-center justify-center min-w-[140px] gap-2 px-4 py-2 border border-govt-border rounded-lg text-sm font-medium cursor-pointer hover:bg-neutral-bg transition-colors ${
+                      isUploading ? "opacity-75 pointer-events-none bg-neutral-bg" : ""
                     }`}
                   >
-                    {isUploading ? "Uploading..." : "Choose Photo"}
+                    {isUploading ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        Uploading...
+                      </>
+                    ) : (
+                      "Choose Photo"
+                    )}
                   </label>
                 </div>
               </div>

@@ -67,7 +67,7 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
           <div className="inline-block px-3 py-1 bg-accent/20 border border-accent/30 text-accent text-xs font-bold rounded-full mb-4">
             {levelLabel}
           </div>
-          <h1 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl mb-6">
+          <h1 className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl mb-6 text-white">
             {course.title}
           </h1>
 

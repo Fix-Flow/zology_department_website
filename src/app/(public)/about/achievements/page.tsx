@@ -25,9 +25,9 @@ export default function AchievementsPage() {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {achievements.map((a, i) => (
-          <div key={i} className="card-static p-5">
+          <div key={i} className="card-static p-5 group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div className="flex items-start gap-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${a.color}`}>
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${a.color}`}>
                 {a.icon}
               </div>
               <div>
