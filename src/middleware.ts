@@ -1,4 +1,5 @@
-import { auth } from "@/lib/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/lib/auth.config";
 import { NextResponse } from "next/server";
 
 // Simple in-memory sliding window rate limiter
@@ -8,7 +9,7 @@ const rateLimitMap = new Map<string, number[]>();
 const LIMIT = 5; // Maximum attempts
 const WINDOW_MS = 15 * 60 * 1000; // 15 minutes in milliseconds
 
-export default auth(async function middleware(req) {
+export default NextAuth(authConfig).auth(async function middleware(req) {
   const { nextUrl, method } = req;
   const ip = (req as any).ip || req.headers.get("x-forwarded-for") || "127.0.0.1";
 
