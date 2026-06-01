@@ -1,12 +1,12 @@
-import { Role } from "@prisma/client";
+import type { Role } from "@prisma/client";
 
-export const ROLE_PERMISSIONS = {
+export const ROLE_PERMISSIONS: Record<string, string[]> = {
   // Routes accessible by each role
   // /admin represents the dashboard root
-  [Role.SUPER_ADMIN]: ["*"], // Wildcard for all routes
-  [Role.FACULTY_MANAGER]: ["/admin", "/admin/faculty"],
-  [Role.EVENT_MANAGER]: ["/admin", "/admin/events", "/admin/gallery", "/admin/notices"],
-  [Role.CONTENT_EDITOR]: [
+  "SUPER_ADMIN": ["*"], // Wildcard for all routes
+  "FACULTY_MANAGER": ["/admin", "/admin/faculty"],
+  "EVENT_MANAGER": ["/admin", "/admin/events", "/admin/gallery", "/admin/notices"],
+  "CONTENT_EDITOR": [
     "/admin",
     "/admin/courses",
     "/admin/publications",
