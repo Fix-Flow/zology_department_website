@@ -16,7 +16,7 @@ export const options = {
   },
 };
 
-const BASE_URL = 'http://localhost:3000'; // Replace with production URL when testing
+const BASE_URL = 'https://zology-department-website.vercel.app/'; // Replace with production URL when testing
 
 export default function () {
   // 1. Test Homepage (Public cache check)

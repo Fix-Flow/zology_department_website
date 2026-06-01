@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { navigation, NavItem } from "@/data/navigation";
 import { SITE_NAME, COLLEGE_SHORT, NAAC_GRADE } from "@/lib/constants";
@@ -19,16 +20,21 @@ export default function Header() {
 
   return (
     <header data-component="Header"
-      className={`sticky top-0 z-30 bg-white transition-shadow duration-200 ${
-        scrolled ? "shadow-md" : "shadow-sm"
+      className={`sticky top-0 z-30 bg-white border-b transition-all duration-300 ${
+        scrolled
+          ? "shadow-lg border-transparent"
+          : "shadow-sm border-govt-border"
       }`}
       style={{ height: "var(--header-height)" }}
     >
+      {/* Gold accent line at top */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent via-accent-dark to-accent" />
+
       <div className="section-container flex h-full items-center justify-between">
         {/* Left: Logo & Title */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
           {/* Placeholder logo — circle with emblem styling */}
-          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0">
+          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-sm">
             <span className="text-white font-heading font-bold text-lg">Z</span>
           </div>
           <div className="flex flex-col justify-center">
@@ -61,6 +67,12 @@ function DesktopNavItem({ item }: { item: NavItem }) {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hasChildren = item.children && item.children.length > 0;
+  const pathname = usePathname();
+
+  // Check if current path matches this nav item
+  const isActive = item.href === "/"
+    ? pathname === "/"
+    : pathname.startsWith(item.href) && item.href !== "#";
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -76,9 +88,16 @@ function DesktopNavItem({ item }: { item: NavItem }) {
       <li>
         <Link
           href={item.href}
-          className="block px-2.5 py-2 text-[13px] font-semibold text-govt-text hover:text-primary transition-colors rounded-md hover:bg-primary/5"
+          className={`block px-3 py-2 text-[13px] font-semibold transition-colors rounded-md ${
+            isActive
+              ? "text-primary bg-primary/5"
+              : "text-govt-text hover:text-primary hover:bg-primary/5"
+          }`}
         >
           {item.label}
+          {isActive && (
+            <span className="block h-0.5 bg-accent rounded-full mt-0.5" />
+          )}
         </Link>
       </li>
     );
@@ -92,7 +111,11 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     >
       <Link
         href={item.href}
-        className="flex items-center gap-1 px-2.5 py-2 text-[13px] font-semibold text-govt-text hover:text-primary transition-colors rounded-md hover:bg-primary/5"
+        className={`flex items-center gap-1 px-3 py-2 text-[13px] font-semibold transition-colors rounded-md ${
+          isActive
+            ? "text-primary bg-primary/5"
+            : "text-govt-text hover:text-primary hover:bg-primary/5"
+        }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
         onClick={(e) => {
@@ -110,23 +133,23 @@ function DesktopNavItem({ item }: { item: NavItem }) {
         />
       </Link>
 
-      {/* Dropdown */}
+      {/* Dropdown — polished */}
       <div
-        className={`absolute left-0 top-full pt-1 z-50 transition-all duration-200 ${
+        className={`absolute left-0 top-full pt-1.5 z-50 transition-all duration-250 ${
           isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 -translate-y-1 pointer-events-none"
+            : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="bg-white rounded-lg shadow-lg border border-govt-border py-1.5 min-w-[220px]">
+        <div className="bg-white rounded-xl shadow-xl border border-govt-border py-2 min-w-[230px]">
           {/* Gold accent line at top */}
-          <div className="h-0.5 bg-accent mx-3 mb-1.5 rounded-full" />
+          <div className="h-0.5 bg-gradient-to-r from-accent to-accent-dark mx-3 mb-2 rounded-full" />
 
           {item.children!.map((child) => (
             <Link
               key={child.label}
               href={child.href}
-              className="block px-4 py-2 text-sm text-govt-text hover:text-primary hover:bg-neutral-bg transition-colors"
+              className="block px-4 py-2.5 text-sm text-govt-text hover:text-primary hover:bg-primary/[0.04] transition-colors"
               onClick={() => setIsOpen(false)}
             >
               {child.label}

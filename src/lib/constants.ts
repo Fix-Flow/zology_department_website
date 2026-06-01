@@ -78,6 +78,6 @@ export const DEPT_STATS = {
 export const FOOTER = {
   copyright: `© ${new Date().getFullYear()} ${COLLEGE_NAME}. All rights reserved.`,
   naacBadge: `NAAC Accredited with '${NAAC_GRADE}' Grade`,
-  bestViewed: "Best viewed in Chrome / Firefox at 1366×768 or higher resolution",
+  bestViewed: "", // Removed — modern responsive websites should not tell users what browser/resolution to use
   builtBy: "Department of Zoology, GDC Siddipet",
 };

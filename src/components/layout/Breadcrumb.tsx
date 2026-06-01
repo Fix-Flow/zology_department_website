@@ -51,31 +51,31 @@ export default function Breadcrumb() {
   return (
     <nav data-component="Breadcrumb"
       aria-label="Breadcrumb"
-      className="bg-white border-b border-govt-border"
+      className="bg-white/80 backdrop-blur-sm border-b border-govt-border"
     >
-      <div className="section-container py-2.5">
-        <ol className="flex items-center gap-1.5 text-sm flex-wrap">
+      <div className="section-container py-2">
+        <ol className="flex items-center gap-1.5 text-xs flex-wrap">
           <li>
             <Link
               href="/"
-              className="flex items-center gap-1 text-govt-muted hover:text-primary transition-colors"
+              className="flex items-center gap-1 text-govt-muted/70 hover:text-primary transition-colors"
             >
-              <Home size={14} />
+              <Home size={13} />
               <span className="hidden xs:inline">Home</span>
             </Link>
           </li>
 
           {breadcrumbs.map((crumb) => (
             <li key={crumb.href} className="flex items-center gap-1.5">
-              <ChevronRight size={13} className="text-govt-muted/50" />
+              <ChevronRight size={12} className="text-govt-muted/40" />
               {crumb.isLast ? (
-                <span className="text-primary font-semibold truncate max-w-[200px]">
+                <span className="text-primary font-bold truncate max-w-[200px]">
                   {crumb.label}
                 </span>
               ) : (
                 <Link
                   href={crumb.href}
-                  className="text-govt-muted hover:text-primary transition-colors"
+                  className="text-govt-muted/70 hover:text-primary transition-colors"
                 >
                   {crumb.label}
                 </Link>

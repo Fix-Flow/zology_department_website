@@ -43,15 +43,15 @@ export default function Footer() {
   return (
     <footer data-component="Footer" className="bg-primary text-white mt-auto">
       {/* Gold accent line */}
-      <div className="h-1 bg-accent" />
+      <div className="h-1 bg-gradient-to-r from-accent via-accent-dark to-accent" />
 
-      <div className="section-container py-12 lg:py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="section-container py-14 lg:py-18">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo + Description */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-                <span className="text-accent font-heading font-bold text-base">Z</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+                <span className="text-accent font-heading font-bold text-lg">Z</span>
               </div>
               <div>
                 <h3 className="font-heading font-bold text-sm text-white leading-tight">
@@ -62,7 +62,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <p className="text-white/60 text-sm leading-relaxed mb-5">
+            <p className="text-white/55 text-sm leading-relaxed mb-6">
               Nurturing scientific temper and academic excellence in biological
               sciences since 1985. NAAC Accredited with &lsquo;{NAAC_GRADE}&rsquo; Grade.
             </p>
@@ -88,16 +88,16 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="font-heading font-bold text-sm mb-4 text-white">
+            <h4 className="font-heading font-bold text-sm mb-5 text-white tracking-wide">
               Quick Links
             </h4>
-            <div className="h-0.5 w-8 bg-accent rounded-full mb-4" />
-            <ul className="space-y-2.5">
+            <div className="h-0.5 w-8 bg-accent rounded-full mb-5" />
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-accent text-sm transition-colors"
+                    className="text-white/55 hover:text-accent text-sm transition-all hover:translate-x-1 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -108,16 +108,16 @@ export default function Footer() {
 
           {/* Column 3: Academic Links */}
           <div>
-            <h4 className="font-heading font-bold text-sm mb-4 text-white">
+            <h4 className="font-heading font-bold text-sm mb-5 text-white tracking-wide">
               Academics
             </h4>
-            <div className="h-0.5 w-8 bg-accent rounded-full mb-4" />
-            <ul className="space-y-2.5">
+            <div className="h-0.5 w-8 bg-accent rounded-full mb-5" />
+            <ul className="space-y-3">
               {academicLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-white/60 hover:text-accent text-sm transition-colors"
+                    className="text-white/55 hover:text-accent text-sm transition-all hover:translate-x-1 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -128,49 +128,49 @@ export default function Footer() {
 
           {/* Column 4: Contact Info */}
           <div>
-            <h4 className="font-heading font-bold text-sm mb-4 text-white">
+            <h4 className="font-heading font-bold text-sm mb-5 text-white tracking-wide">
               Contact Us
             </h4>
-            <div className="h-0.5 w-8 bg-accent rounded-full mb-4" />
-            <ul className="space-y-3.5">
-              <li className="flex items-start gap-2.5">
+            <div className="h-0.5 w-8 bg-accent rounded-full mb-5" />
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
                 <MapPin size={15} className="text-accent mt-0.5 shrink-0" />
-                <span className="text-white/60 text-sm leading-relaxed">
+                <span className="text-white/55 text-sm leading-relaxed">
                   {ADDRESS.line1}, {ADDRESS.line2}, {ADDRESS.city},{" "}
                   {ADDRESS.state} - {ADDRESS.pincode}
                 </span>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-3">
                 <Phone size={15} className="text-accent shrink-0" />
                 <a
                   href={`tel:${CONTACT_PHONE}`}
-                  className="text-white/60 hover:text-accent text-sm transition-colors"
+                  className="text-white/55 hover:text-accent text-sm transition-colors"
                 >
                   {CONTACT_PHONE_DISPLAY}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-3">
                 <Mail size={15} className="text-accent shrink-0" />
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-white/60 hover:text-accent text-sm transition-colors"
+                  className="text-white/55 hover:text-accent text-sm transition-colors"
                 >
                   {CONTACT_EMAIL}
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-3">
                 <Clock size={15} className="text-accent shrink-0" />
-                <span className="text-white/60 text-sm">
+                <span className="text-white/55 text-sm">
                   {OFFICE_TIMINGS.weekdays}
                 </span>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-3">
                 <ExternalLink size={15} className="text-accent shrink-0" />
                 <a
                   href={COLLEGE_WEBSITE}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/60 hover:text-accent text-sm transition-colors"
+                  className="text-white/55 hover:text-accent text-sm transition-colors"
                 >
                   College Main Website
                 </a>
@@ -180,19 +180,16 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom Bar — cleaned up, "best viewed" text REMOVED */}
       <div className="border-t border-white/10">
-        <div className="section-container py-4">
-          <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div className="section-container py-5">
+          <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
             <p className="text-white/40 text-xs">
               {FOOTER.copyright} · {FOOTER.naacBadge}
             </p>
-            <div className="flex items-center gap-4 text-white/30 text-[11px]">
-              <p>{FOOTER.bestViewed}</p>
-              <Link href="/admin" className="hover:text-white/60 transition-colors">
-                Admin Login
-              </Link>
-            </div>
+            <Link href="/admin" className="text-white/25 text-[11px] hover:text-white/50 transition-colors">
+              Admin Login
+            </Link>
           </div>
         </div>
       </div>
@@ -215,7 +212,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-accent hover:text-primary-dark transition-all"
+      className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-accent hover:text-primary-dark transition-all hover:scale-110"
     >
       {children}
     </a>

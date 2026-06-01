@@ -7,10 +7,10 @@ interface PageHeroProps {
 export default function PageHero({ title, subtitle }: PageHeroProps) {
   return (
     <div data-component="PageHero" className="page-hero">
-      <div className="section-container">
+      <div className="section-container relative z-10">
         <h1 className="font-heading text-page-title text-white">{title}</h1>
         {subtitle && (
-          <p className="mt-2 text-white/70 text-base max-w-2xl mx-auto">
+          <p className="mt-3 text-white/65 text-base max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         )}

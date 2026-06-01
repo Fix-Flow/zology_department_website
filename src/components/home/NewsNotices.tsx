@@ -31,7 +31,7 @@ export default async function NewsNotices() {
             </h2>
             <span className="gold-divider" />
 
-            <div className="mt-6 space-y-4">
+            <div className="mt-8 space-y-5">
               <HighlightCard
                 title="BSF Waste Management Unit Inaugurated"
                 date="November 2024"
@@ -63,7 +63,7 @@ export default async function NewsNotices() {
 
               <div className="max-h-[420px] overflow-y-auto">
                 {recentNotices.length === 0 ? (
-                  <div className="p-6 text-center text-govt-muted text-sm">
+                  <div className="p-8 text-center text-govt-muted text-sm">
                     No notices posted yet.
                   </div>
                 ) : (
@@ -90,7 +90,7 @@ export default async function NewsNotices() {
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-govt-muted mt-1">
+                        <p className="text-xs text-govt-muted mt-1.5">
                           {formatDate(notice.date.toISOString())}
                         </p>
                       </div>
@@ -100,13 +100,13 @@ export default async function NewsNotices() {
               </div>
 
               {/* View All */}
-              <div className="p-3 border-t border-govt-border text-center">
+              <div className="p-3.5 border-t border-govt-border text-center bg-neutral-bg/50">
                 <Link
                   href="/downloads"
-                  className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
+                  className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1.5 group"
                 >
                   View All Notices
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -129,15 +129,15 @@ function HighlightCard({
   tag: string;
 }) {
   return (
-    <div className="card-static p-5">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="badge-accent text-[10px]">{tag}</span>
-        <span className="text-xs text-govt-muted">{date}</span>
+    <div className="card-interactive p-6">
+      <div className="flex items-center gap-2.5 mb-3">
+        <span className="badge-accent">{tag}</span>
+        <span className="text-xs text-govt-muted font-medium">{date}</span>
       </div>
       <h3 className="font-body font-semibold text-base text-govt-text leading-snug">
         {title}
       </h3>
-      <p className="mt-2 text-sm text-govt-muted leading-relaxed">
+      <p className="mt-2.5 text-sm text-govt-muted leading-relaxed">
         {description}
       </p>
     </div>

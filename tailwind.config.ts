@@ -92,14 +92,18 @@ const config: Config = {
         md: "var(--radius-md)",
         lg: "var(--radius-lg)",
         xl: "var(--radius-xl)",
+        "2xl": "var(--radius-2xl)",
       },
 
       /* ─── Box Shadow ─── */
       boxShadow: {
+        "xs": "var(--shadow-xs)",
         "card": "var(--shadow-card)",
+        "card-hover": "var(--shadow-card-hover)",
         "sm": "var(--shadow-sm)",
         "md": "var(--shadow-md)",
         "lg": "var(--shadow-lg)",
+        "xl": "var(--shadow-xl)",
         "primary-glow": "0 4px 14px rgba(26, 58, 107, 0.2)",
         "accent-glow": "0 4px 14px rgba(201, 153, 26, 0.25)",
       },
