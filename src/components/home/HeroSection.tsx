@@ -69,14 +69,6 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
-
-        {/* Decorative element — right side with gentle animation */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden xl:block animate-gentle-float">
-          <div className="w-80 h-80 rounded-full border border-white/[0.06]" />
-          <div className="absolute top-8 left-8 w-64 h-64 rounded-full border border-white/[0.06]" />
-          <div className="absolute top-16 left-16 w-48 h-48 rounded-full border border-accent/[0.08]" />
-          <div className="absolute top-24 left-24 w-32 h-32 rounded-full border border-accent/[0.06]" />
-        </div>
       </div>
 
       {/* Bottom accent — gradient bar */}

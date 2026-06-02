@@ -16,6 +16,7 @@ const noticeSchema = z.object({
     "ADMISSION",
     "GENERAL",
   ]),
+  content: z.string().max(5000).optional(),
   attachmentUrl: z.string().max(2000).optional(),
   isNew: z.boolean().default(true),
 });
@@ -40,6 +41,7 @@ export async function createNotice(
     title: formData.get("title"),
     date: formData.get("date"),
     category: formData.get("category"),
+    content: formData.get("content") || undefined,
     attachmentUrl: formData.get("attachmentUrl") || undefined,
     isNew: formData.get("isNew") === "true",
   });
@@ -84,6 +86,7 @@ export async function updateNotice(
     title: formData.get("title"),
     date: formData.get("date"),
     category: formData.get("category"),
+    content: formData.get("content") || undefined,
     attachmentUrl: formData.get("attachmentUrl") || undefined,
     isNew: formData.get("isNew") === "true",
   });

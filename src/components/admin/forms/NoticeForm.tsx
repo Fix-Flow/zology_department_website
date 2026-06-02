@@ -142,6 +142,29 @@ export default function NoticeForm({ notice }: NoticeFormProps) {
             </div>
           </div>
 
+          {/* Content */}
+          <div>
+            <label
+              htmlFor="content"
+              className="block text-sm font-medium text-govt-text mb-1.5"
+            >
+              Notice Content <span className="text-govt-muted font-normal">(optional)</span>
+            </label>
+            <textarea
+              id="content"
+              name="content"
+              rows={4}
+              defaultValue={notice?.content || ""}
+              className="w-full px-4 py-2.5 border border-govt-border rounded-lg text-sm text-govt-text placeholder:text-govt-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-y"
+              placeholder="Enter detailed notice information here..."
+            />
+            {state.errors?.content && (
+              <p className="text-red-500 text-xs mt-1">
+                {state.errors.content[0]}
+              </p>
+            )}
+          </div>
+
           {/* Attachment URL */}
           <div>
             <label

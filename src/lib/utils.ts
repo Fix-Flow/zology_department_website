@@ -94,6 +94,27 @@ export function isRecent(dateString: string, days: number = 7): boolean {
 }
 
 /**
+ * Determine if the "NEW" badge should be shown on a notice.
+ * Returns true if the admin marked it as new AND it's less than 24 hours old.
+ */
+export function isNoticeNew(isNewFlag: boolean, dateVal: string | Date): boolean {
+  if (!isNewFlag) return false;
+  
+  const date = new Date(dateVal);
+  const now = new Date();
+  
+  // Difference in milliseconds
+  const diffMs = now.getTime() - date.getTime();
+  
+  // If date is in the future, it's definitely new.
+  if (diffMs < 0) return true;
+  
+  // If it's less than 24 hours old (1 day), it's new.
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+  return diffMs <= ONE_DAY_MS;
+}
+
+/**
  * Convert comma-separated string to an array of trimmed strings.
  */
 export function parseCsv(str?: string | null, delimiter: string | RegExp = ","): string[] {

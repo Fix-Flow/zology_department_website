@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { navigation, NavItem } from "@/data/navigation";
 import { SITE_NAME } from "@/lib/constants";
@@ -49,8 +50,14 @@ export default function MobileNav() {
         {/* Panel Header — with branding */}
         <div className="flex items-center justify-between p-4 border-b border-govt-border">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
-              <span className="text-white font-heading font-bold text-xs">Z</span>
+            <div className="w-8 h-8 shrink-0">
+              <Image 
+                src="/images/zoology-logo-1.png" 
+                alt="Zoology Department Logo" 
+                width={32} 
+                height={32} 
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className="font-heading font-bold text-primary text-sm">
               {SITE_NAME}

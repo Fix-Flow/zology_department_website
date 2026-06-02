@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Phone,
   Mail,
@@ -50,8 +51,14 @@ export default function Footer() {
           {/* Column 1: Logo + Description */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-                <span className="text-accent font-heading font-bold text-lg">Z</span>
+              <div className="w-12 h-12 shrink-0">
+                <Image 
+                  src="/images/zoology-logo-1.png" 
+                  alt="Zoology Department Logo" 
+                  width={48} 
+                  height={48} 
+                  className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity bg-slate-50 rounded-full p-0.5"
+                />
               </div>
               <div>
                 <h3 className="font-heading font-bold text-sm text-white leading-tight">

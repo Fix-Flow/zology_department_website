@@ -6,12 +6,6 @@ export default async function AnnouncementTicker() {
     where: { isActive: true },
     orderBy: { date: "desc" },
     take: 8,
-    select: {
-      id: true,
-      title: true,
-      attachmentUrl: true,
-      isNew: true,
-    },
   });
 
   if (notices.length === 0) return null;

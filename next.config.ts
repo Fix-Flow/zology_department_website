@@ -44,9 +44,6 @@ const nextConfig: NextConfig = {
       { source: "/courses/programme-outcomes", destination: "/courses", permanent: false },
       { source: "/courses/course-outcomes", destination: "/courses", permanent: false },
       { source: "/faculty/staff", destination: "/faculty", permanent: false },
-      { source: "/facilities/museum", destination: "/facilities", permanent: false },
-      { source: "/facilities/vermicomposting", destination: "/facilities", permanent: false },
-      { source: "/facilities/aquaculture", destination: "/facilities", permanent: false },
     ];
   },
   images: {

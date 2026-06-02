@@ -37,22 +37,22 @@ export const navigation: NavItem[] = [
     children: [
       { label: "Faculty", href: "/faculty" },
       { label: "Students", href: "/student-corner" },
-      { label: "Alumni", href: "/alumni" },
-      { label: "Research Scholars / Project Students", href: "/research-scholars" },
+      { label: "Alumni", href: "/" }, //change it to /alumni later
+      { label: "Research Scholars / Project Students", href: "/" }, //change it to /research-scholars later
       { label: "Supporting Staff", href: "/faculty/staff" },
     ],
   },
   {
     label: "Research & Innovation",
-    href: "/research",
+    href: "/", //change it to /research later
     children: [
       { label: "Publications", href: "/publications" },
-      { label: "Projects", href: "/projects" },
+      { label: "Projects", href: "/" }, //change it to /projects later
       { label: "Zoology Museum", href: "/facilities/museum" },
-      { label: "Biodiversity Documentation", href: "/biodiversity" },
+      { label: "Biodiversity Documentation", href: "/" }, //change it to /biodiversity later
       { label: "BSF & Vermicomposting", href: "/facilities/vermicomposting" },
       { label: "Fisheries & Aquaculture Lab", href: "/facilities/aquaculture" },
-      { label: "Student Research", href: "/student-research" },
+      { label: "Student Research", href: "/" }, //change it to /student-research later
     ],
   },
   {
@@ -65,7 +65,7 @@ export const navigation: NavItem[] = [
       { label: "Extension Activities", href: "/events?type=extension" },
       { label: "Student Corner", href: "/student-corner" },
       { label: "Gallery", href: "/gallery" },
-      { label: "Placements", href: "/placements" },
+      { label: "Placements", href: "/" }, //change it to /placements later
     ],
   },
   { label: "Contact", href: "/contact" },

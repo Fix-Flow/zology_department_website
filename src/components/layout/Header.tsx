@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { navigation, NavItem } from "@/data/navigation";
@@ -33,9 +34,15 @@ export default function Header() {
       <div className="section-container flex h-full items-center justify-between">
         {/* Left: Logo & Title */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          {/* Placeholder logo — circle with emblem styling */}
-          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-sm">
-            <span className="text-white font-heading font-bold text-lg">Z</span>
+          {/* Logo */}
+          <div className="w-14 h-14 shrink-0">
+            <Image 
+              src="/images/zoology-logo-1.png" 
+              alt="Zoology Department Logo" 
+              width={52} 
+              height={52} 
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="flex flex-col justify-center">
             <h1 className="font-heading font-bold text-primary text-xs sm:text-sm leading-tight line-clamp-2 sm:line-clamp-1">

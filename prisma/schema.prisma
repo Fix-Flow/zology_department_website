@@ -136,6 +136,7 @@ enum NoticeCategory {
 model Notice {
   id            String         @id @default(cuid())
   title         String
+  content       String?        @db.Text
   date          DateTime
   category      NoticeCategory
   attachmentUrl String?

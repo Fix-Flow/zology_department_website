@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Bell, FileText, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
+import NoticeBoardClient from "./NoticeBoardClient";
 
 
 const categoryColors: Record<string, string> = {
@@ -55,61 +56,7 @@ export default async function NewsNotices() {
 
           {/* Right: Notice Board */}
           <div>
-            <div className="notice-panel sticky top-28">
-              <div className="notice-panel-header">
-                <Bell size={16} />
-                <span>Notice Board</span>
-              </div>
-
-              <div className="max-h-[420px] overflow-y-auto">
-                {recentNotices.length === 0 ? (
-                  <div className="p-8 text-center text-govt-muted text-sm">
-                    No notices posted yet.
-                  </div>
-                ) : (
-                  recentNotices.map((notice) => (
-                    <Link
-                      key={notice.id}
-                      href={notice.attachmentUrl || "#"}
-                      className="notice-item group"
-                    >
-                      <div className="shrink-0 mt-0.5">
-                        <FileText
-                          size={16}
-                          className={categoryColors[notice.category] || "text-gray-500"}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start gap-2">
-                          <p className="text-sm font-medium text-govt-text group-hover:text-primary transition-colors line-clamp-2 flex-1">
-                            {notice.title}
-                          </p>
-                          {notice.isNew && (
-                            <span className="badge-new text-[8px] px-1.5 py-0 shrink-0 mt-0.5">
-                              NEW
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-xs text-govt-muted mt-1.5">
-                          {formatDate(notice.date.toISOString())}
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                )}
-              </div>
-
-              {/* View All */}
-              <div className="p-3.5 border-t border-govt-border text-center bg-neutral-bg/50">
-                <Link
-                  href="/downloads"
-                  className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1.5 group"
-                >
-                  View All Notices
-                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
+            <NoticeBoardClient notices={recentNotices} />
           </div>
         </div>
       </div>
